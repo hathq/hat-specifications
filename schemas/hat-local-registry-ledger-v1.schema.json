@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/local-registry-ledger/v1",
+  "title": "Local registry provenance ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "ledger_id", "revision", "purpose", "owner_ref", "entries"],
+  "properties": {
+    "schema": { "const": "hathq://hat/local-registry-ledger/v1" },
+    "ledger_id": { "$ref": "#/$defs/token" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "purpose": { "enum": ["development", "hat-acquisition"] },
+    "owner_ref": { "$ref": "#/$defs/reference" },
+    "entries": {
+      "type": "array",
+      "maxItems": 8192,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "token": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "reference": { "type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[^\\u0000-\\u001f]+$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "schemaRef": { "type": "string", "pattern": "^hathq://[a-z0-9][a-z0-9./-]*/v[1-9][0-9]*$" },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entry_id", "source", "artifact", "verification", "published_as", "recorded_at_epoch_s"],
+      "properties": {
+        "entry_id": { "$ref": "#/$defs/token" },
+        "source": { "$ref": "#/$defs/source" },
+        "artifact": { "$ref": "#/$defs/artifact" },
+        "verification": { "$ref": "#/$defs/verification" },
+        "published_as": {
+          "type": "array",
+          "maxItems": 16,
+          "items": { "$ref": "#/$defs/publication" }
+        },
+        "recorded_at_epoch_s": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference", "source_schema", "source_digest_sha256"],
+      "properties": {
+        "kind": { "enum": ["local-directory", "local-registry", "https", "github-repository", "github-actions-artifact"] },
+        "reference": { "$ref": "#/$defs/reference" },
+        "source_schema": { "anyOf": [{ "$ref": "#/$defs/schemaRef" }, { "type": "null" }] },
+        "source_digest_sha256": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "artifact_id", "digest_sha256", "size_bytes", "media_type", "local_ref"],
+      "properties": {
+        "kind": { "enum": ["cargo-crate", "hat-package", "hat-worker", "local-model-package", "ui-module", "source-snapshot", "provider-artifact"] },
+        "artifact_id": { "$ref": "#/$defs/token" },
+        "digest_sha256": { "$ref": "#/$defs/digest" },
+        "size_bytes": { "type": "integer", "minimum": 1 },
+        "media_type": { "anyOf": [{ "type": "string", "minLength": 3, "maxLength": 128 }, { "type": "null" }] },
+        "local_ref": { "$ref": "#/$defs/reference" }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "verifier_ref", "verified_at_epoch_s", "reason_id", "evidence_refs"],
+      "properties": {
+        "state": { "enum": ["verified", "unverified", "rejected", "expired"] },
+        "verifier_ref": { "$ref": "#/$defs/reference" },
+        "verified_at_epoch_s": { "anyOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }] },
+        "reason_id": { "anyOf": [{ "$ref": "#/$defs/schemaRef" }, { "type": "null" }] },
+        "evidence_refs": {
+          "type": "array",
+          "maxItems": 64,
+          "items": { "$ref": "hathq://hat/invocation/v4#/$defs/evidenceReference" }
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interface", "reference", "digest_sha256", "published_at_epoch_s"],
+      "properties": {
+        "interface": { "enum": ["hatter-ledger", "hat-catalog", "cargo-sparse-registry", "npm-registry", "oci-registry", "filesystem-cas"] },
+        "reference": { "$ref": "#/$defs/reference" },
+        "digest_sha256": { "$ref": "#/$defs/digest" },
+        "published_at_epoch_s": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/projection/v2",
+  "title": "Current HAT context partition projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "context_partition_id", "package_id", "revision", "timeline_watermark", "projection_digest_sha256", "evidence_refs", "unresolved_terms"]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "hathq://hat/commitment/v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "commitment_id", "revision", "goal", "desired_state", "committed_by", "decision", "valid_from_epoch_s", "valid_until_epoch_s", "state"],
+  "properties": {
+    "schema": { "const": "hathq://hat/commitment/v1" }, "commitment_id": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/token" }, "revision": { "type": "integer", "minimum": 1 },
+    "goal": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "desired_state": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "committed_by": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" },
+    "decision": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/decision" }, "valid_from_epoch_s": { "type": "integer", "minimum": 1 }, "valid_until_epoch_s": { "type": "integer", "minimum": 1 },
+    "state": { "enum": ["active", "fulfilled", "cancelled"] }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/manifest/v1",
+  "title": "HAT manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "name", "version", "capabilities", "decision_boundaries", "input_classifications", "output_classification", "permissions"],
+  "properties": {
+    "schema": { "const": "hathq://hat/manifest/v1" },
+    "id": { "type": "string", "pattern": "^hat/[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "name": { "type": "string", "pattern": "\\S" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "capabilities": { "$ref": "#/$defs/stableTokens" },
+    "decision_boundaries": { "$ref": "#/$defs/stableTokens" },
+    "input_classifications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/classification" }
+    },
+    "output_classification": { "$ref": "#/$defs/classification" },
+    "permissions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "x-hathq-uniqueBy": "resource",
+      "items": { "$ref": "#/$defs/permission" }
+    }
+  },
+  "$defs": {
+    "stableToken": {
+      "type": "string",
+      "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$"
+    },
+    "stableTokens": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/stableToken" }
+    },
+    "classification": {
+      "enum": ["public", "internal", "internal-confidential", "restricted-sensitive"]
+    },
+    "observeOperation": {
+      "enum": ["compare-state", "inspect-aggregate", "inspect-metadata", "list-records", "read-summary", "review-evidence"]
+    },
+    "proposeOperation": {
+      "enum": ["compare-state", "inspect-aggregate", "inspect-metadata", "list-records", "propose-allocation", "propose-boundary", "propose-classification", "propose-obligation", "propose-publication", "propose-recommendation", "propose-scenario", "read-summary", "review-evidence"]
+    },
+    "executeOperation": {
+      "enum": ["create-private-resource", "create-review-request", "create-work-item", "dispatch-operation", "publish-artifact"]
+    },
+    "permission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "operations", "mode"],
+      "properties": {
+        "resource": { "$ref": "#/$defs/stableToken" },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "mode": { "enum": ["observe", "propose", "execute"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "observe" } }, "required": ["mode"] },
+          "then": { "properties": { "operations": { "items": { "$ref": "#/$defs/observeOperation" } } } }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "propose" } }, "required": ["mode"] },
+          "then": { "properties": { "operations": { "items": { "$ref": "#/$defs/proposeOperation" } } } }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "execute" } }, "required": ["mode"] },
+          "then": { "properties": { "operations": { "items": { "$ref": "#/$defs/executeOperation" } } } }
+        }
+      ]
+    }
+  }
+}

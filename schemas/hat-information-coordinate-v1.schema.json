@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/information-coordinate/v1",
+  "title": "Independent HAT information coordinate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "vocabulary_owner_id", "catalog_digest_sha256", "term_id", "structural_axis", "change_policy", "data_domain_term_id", "sensitivity"],
+  "properties": {
+    "schema": { "const": "hathq://hat/information-coordinate/v1" },
+    "vocabulary_owner_id": { "$ref": "#/$defs/stableToken" },
+    "catalog_digest_sha256": { "$ref": "#/$defs/digest" },
+    "term_id": { "type": "string", "pattern": "^hathq://[a-z0-9][a-z0-9./-]*/v[1-9][0-9]*$" },
+    "structural_axis": { "enum": ["human-structure", "identity-life-event", "biological-profile", "health-observation", "location-residence", "jurisdiction-institution", "social-relationship", "preference-objective", "work-task"] },
+    "change_policy": { "enum": ["specification-versioned", "correction-only", "interval", "append-only-observation", "refreshable-external-rule", "user-editable", "rebuildable-projection"] },
+    "data_domain_term_id": { "type": "string", "pattern": "^hathq://vocabulary/data-domain/[a-z0-9][a-z0-9-]*/v[1-9][0-9]*$" },
+    "sensitivity": { "enum": ["public", "internal", "internal-confidential", "restricted-sensitive"] }
+  },
+  "$defs": {
+    "stableToken": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

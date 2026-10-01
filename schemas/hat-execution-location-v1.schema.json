@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/execution-location/v1",
+  "title": "Selectable logical HAT execution location",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "location_id", "package_id", "package_digest_sha256", "publisher_id", "execution_kind", "worker_service_id", "identity_authority_ref", "transport_profile_ref", "route_ref", "region", "jurisdictions", "data_residencies", "operation_ids", "accepted_classifications", "capability_ids", "assurance", "issued_at_epoch_s", "expires_at_epoch_s", "revocation_epoch"],
+  "properties": {
+    "schema": {"const": "hathq://hat/execution-location/v1"},
+    "location_id": {"$ref": "#/$defs/token"},
+    "package_id": {"type": "string", "pattern": "^hat/[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 100},
+    "package_digest_sha256": {"$ref": "#/$defs/digest"},
+    "publisher_id": {"$ref": "#/$defs/token"},
+    "execution_kind": {"enum": ["owner-local", "owner-device", "federated-managed", "external-provider"]},
+    "worker_service_id": {"$ref": "#/$defs/token"},
+    "identity_authority_ref": {"type": "string", "pattern": "^ihat/[a-z0-9/-]+$", "maxLength": 256},
+    "transport_profile_ref": {"type": "string", "pattern": "^crowsi/[a-z0-9/-]+$", "maxLength": 256},
+    "route_ref": {"type": "string", "pattern": "^crowsi/[a-z0-9/-]+$", "maxLength": 256},
+    "region": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/token"}]},
+    "jurisdictions": {"$ref": "#/$defs/tokens"},
+    "data_residencies": {"$ref": "#/$defs/tokens"},
+    "operation_ids": {"type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": {"$ref": "#/$defs/schemaId"}},
+    "accepted_classifications": {"$ref": "#/$defs/classifications"},
+    "capability_ids": {"type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": {"$ref": "#/$defs/token"}},
+    "assurance": {"enum": ["official", "verified"]},
+    "issued_at_epoch_s": {"type": "integer", "minimum": 1},
+    "expires_at_epoch_s": {"type": "integer", "minimum": 1},
+    "revocation_epoch": {"type": "integer", "minimum": 0}
+  },
+  "$defs": {
+    "token": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$"},
+    "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "schemaId": {"type": "string", "pattern": "^hathq://[a-z0-9./-]+/v[1-9][0-9]*$"},
+    "tokens": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"$ref": "#/$defs/token"}},
+    "classifications": {"type": "array", "minItems": 1, "maxItems": 4, "uniqueItems": true, "items": {"enum": ["public", "internal", "internal-confidential", "restricted-sensitive"]}}
+  }
+}

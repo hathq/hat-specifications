@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/composition-approval/v1",
+  "title": "Whole HAT composition approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "approval_id", "proposal_digest_sha256", "approved_by_subject_ref", "expected_composition_revision"],
+  "properties": {
+    "schema": { "const": "hathq://hat/composition-approval/v1" },
+    "approval_id": { "$ref": "#/$defs/token" },
+    "proposal_digest_sha256": { "$ref": "#/$defs/digest" },
+    "approved_by_subject_ref": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "expected_composition_revision": { "type": ["integer", "null"], "minimum": 0 }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

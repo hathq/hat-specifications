@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/composition-proposal/v1",
+  "title": "Explicit bounded multi-HAT composition proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "proposal_id", "subject_ref", "scope_ref", "expected_composition_revision", "members"],
+  "properties": {
+    "schema": { "const": "hathq://hat/composition-proposal/v1" },
+    "proposal_id": { "$ref": "#/$defs/token" },
+    "subject_ref": { "$ref": "#/$defs/reference" },
+    "scope_ref": { "$ref": "#/$defs/reference" },
+    "expected_composition_revision": { "type": ["integer", "null"], "minimum": 0 },
+    "members": { "type": "array", "minItems": 1, "maxItems": 64, "items": { "$ref": "#/$defs/member" } }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "reference": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "schemaId": { "type": "string", "pattern": "^hathq://[a-z0-9./-]+/v[1-9][0-9]*$" },
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_id", "package_id", "package_digest_sha256", "catalog_digest_sha256", "fitting_digest_sha256", "policy_digest_sha256", "expected_binding_revision", "dependency_repository_ids", "incompatible_repository_ids", "operation_ids"],
+      "properties": {
+        "repository_id": { "$ref": "#/$defs/token" },
+        "package_id": { "type": "string", "pattern": "^hat/[a-z0-9][a-z0-9-]*$" },
+        "package_digest_sha256": { "$ref": "#/$defs/digest" },
+        "catalog_digest_sha256": { "$ref": "#/$defs/digest" },
+        "fitting_digest_sha256": { "$ref": "#/$defs/digest" },
+        "policy_digest_sha256": { "$ref": "#/$defs/digest" },
+        "expected_binding_revision": { "type": ["integer", "null"], "minimum": 0 },
+        "dependency_repository_ids": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/token" } },
+        "incompatible_repository_ids": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/token" } },
+        "operation_ids": { "type": "array", "minItems": 1, "maxItems": 128, "items": { "$ref": "#/$defs/schemaId" } }
+      }
+    }
+  }
+}

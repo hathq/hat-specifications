@@ -1,0 +1,7 @@
+schema = "hathq://hat/profile/v1"
+id = "profile/editor"
+granted_capabilities = ["source-evaluation", "evidence-summarization"]
+allowed_resources = ["knowledge-source"]
+decision_authorities = ["recommend-source-acceptance"]
+maximum_input_classification = "internal"
+

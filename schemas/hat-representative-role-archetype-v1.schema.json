@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/representative-role-archetype/v1",
+  "title": "Owner-bound representative role archetype",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "archetype_id", "initial_display_name", "description", "initial_icon", "contribution_kinds", "authority_ceiling"],
+  "properties": {
+    "schema": { "const": "hathq://hat/representative-role-archetype/v1" },
+    "archetype_id": { "$ref": "#/$defs/token" },
+    "initial_display_name": { "$ref": "#/$defs/name" },
+    "description": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "initial_icon": { "enum": ["decision", "action", "communication", "evidence", "person"] },
+    "contribution_kinds": { "type": "array", "minItems": 1, "maxItems": 9, "uniqueItems": true, "items": { "$ref": "#/$defs/contributionKind" } },
+    "authority_ceiling": { "$ref": "#/$defs/delegationMode" }
+  },
+  "$defs": {
+    "token": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "contributionKind": { "enum": ["observation", "value-concern", "option", "proposal", "decision", "instruction", "external-exchange", "verification", "unresolved-question"] },
+    "delegationMode": { "enum": ["observe", "propose", "conditional", "delegated"] }
+  }
+}

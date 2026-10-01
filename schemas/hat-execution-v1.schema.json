@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "hathq://hat/execution/v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "execution_id", "revision", "task", "delegation", "provider", "capability", "operation", "request", "result", "started_at_epoch_s", "finished_at_epoch_s", "outcome", "evidence_refs"],
+  "properties": {
+    "schema": { "const": "hathq://hat/execution/v1" }, "execution_id": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/token" }, "revision": { "type": "integer", "minimum": 1 },
+    "task": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "delegation": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "provider": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "capability": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/term" }, "operation": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/term" }, "request": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" },
+    "result": { "oneOf": [{ "type": "null" }, { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }] }, "started_at_epoch_s": { "type": "integer", "minimum": 1 }, "finished_at_epoch_s": { "type": ["integer", "null"], "minimum": 1 }, "outcome": { "enum": ["succeeded", "failed", "denied", "cancelled"] },
+    "evidence_refs": { "type": "array", "minItems": 1, "maxItems": 128, "items": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/evidence" } }
+  }
+}

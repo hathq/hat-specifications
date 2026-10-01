@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/matter/v1",
+  "title": "Bounded owner decision matter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "matter_id", "revision", "title", "owner_subject_id", "subject_ref", "scope_refs", "goal_ref", "participant_role_instance_ids", "contribution_refs", "pending_question_refs", "decision_ref", "state", "created_at_epoch_s", "updated_at_epoch_s"],
+  "properties": {
+    "schema": { "const": "hathq://hat/matter/v1" },
+    "matter_id": { "$ref": "#/$defs/token" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "owner_subject_id": { "$ref": "#/$defs/token" },
+    "subject_ref": { "$ref": "#/$defs/reference" },
+    "scope_refs": { "$ref": "#/$defs/requiredReferences" },
+    "goal_ref": { "$ref": "#/$defs/reference" },
+    "participant_role_instance_ids": { "type": "array", "minItems": 1, "maxItems": 256, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
+    "contribution_refs": { "type": "array", "maxItems": 4096, "uniqueItems": true, "items": { "$ref": "#/$defs/reference" } },
+    "pending_question_refs": { "type": "array", "maxItems": 256, "uniqueItems": true, "items": { "$ref": "#/$defs/reference" } },
+    "decision_ref": { "oneOf": [{ "$ref": "#/$defs/reference" }, { "type": "null" }] },
+    "state": { "enum": ["open", "waiting-owner", "decided", "executing", "awaiting-verification", "closed", "cancelled"] },
+    "created_at_epoch_s": { "type": "integer", "minimum": 1 },
+    "updated_at_epoch_s": { "type": "integer", "minimum": 1 }
+  },
+  "$defs": {
+    "token": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "reference": { "type": "object", "additionalProperties": false, "required": ["schema", "id", "revision", "digest_sha256"], "properties": { "schema": { "type": "string", "pattern": "^hathq://[^?#@]+$", "maxLength": 512 }, "id": { "type": "string", "minLength": 1, "maxLength": 256 }, "revision": { "type": "integer", "minimum": 1 }, "digest_sha256": { "$ref": "#/$defs/digest" } } },
+    "requiredReferences": { "type": "array", "minItems": 1, "maxItems": 256, "uniqueItems": true, "items": { "$ref": "#/$defs/reference" } }
+  }
+}

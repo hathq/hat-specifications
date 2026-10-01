@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/semantic-comprehension-report/v1",
+  "title": "Receiver semantic comprehension report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "exchange_id", "receiver", "terms", "accepted"],
+  "properties": {
+    "schema": { "const": "hathq://hat/semantic-comprehension-report/v1" },
+    "exchange_id": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "receiver": { "$ref": "hathq://hat/semantic-clause/v1#/$defs/stableRef" },
+    "terms": { "type": "array", "minItems": 1, "maxItems": 256, "items": { "$ref": "#/$defs/item" } },
+    "accepted": { "type": "boolean" }
+  },
+  "$defs": {
+    "item": { "type": "object", "additionalProperties": false, "required": ["term", "state"], "properties": { "term": { "$ref": "hathq://hat/semantic-catalog/v1#/$defs/termRef" }, "state": { "enum": ["understood", "hat-required", "version-conflict", "policy-denied"] } } }
+  }
+}

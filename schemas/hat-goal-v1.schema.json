@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "hathq://hat/goal/v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "goal_id", "revision", "owner_subject", "origin", "parent_goal", "proposed_by_hat", "desired_state", "constraint_refs", "state", "evidence_refs"],
+  "properties": {
+    "schema": { "const": "hathq://hat/goal/v1" }, "goal_id": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/token" }, "revision": { "type": "integer", "minimum": 1 },
+    "owner_subject": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "origin": { "enum": ["user-declared", "hat-derived"] },
+    "parent_goal": { "oneOf": [{ "type": "null" }, { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }] },
+    "proposed_by_hat": { "oneOf": [{ "type": "null" }, { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }] },
+    "desired_state": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" },
+    "constraint_refs": { "type": "array", "maxItems": 128, "uniqueItems": true, "items": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" } },
+    "state": { "enum": ["active", "satisfied", "cancelled"] },
+    "evidence_refs": { "type": "array", "minItems": 1, "maxItems": 128, "items": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/evidence" } }
+  }
+}

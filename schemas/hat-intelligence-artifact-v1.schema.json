@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "hathq://hat/intelligence-artifact/v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "artifact_id", "revision", "kind", "producer", "subject", "payload", "evidence_refs"],
+  "properties": {
+    "schema": { "const": "hathq://hat/intelligence-artifact/v1" }, "artifact_id": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/token" }, "revision": { "type": "integer", "minimum": 1 }, "kind": { "enum": ["observation", "candidate", "projection", "proposal"] },
+    "producer": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "subject": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "payload": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" },
+    "evidence_refs": { "type": "array", "minItems": 1, "maxItems": 128, "items": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/evidence" } }
+  }
+}

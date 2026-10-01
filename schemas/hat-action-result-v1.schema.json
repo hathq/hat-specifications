@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/action-result/v1",
+  "title": "Terminal HAT invocation result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "invocation_id", "operation_id", "state_revision", "projection_revision", "outcome", "output", "reason_id", "evidence_refs"],
+  "properties": {
+    "schema": { "const": "hathq://hat/action-result/v1" },
+    "invocation_id": { "$ref": "#/$defs/token" },
+    "operation_id": { "$ref": "#/$defs/schemaId" },
+    "state_revision": { "type": "integer", "minimum": 0 },
+    "projection_revision": { "type": "integer", "minimum": 0 },
+    "outcome": { "enum": ["completed", "failed", "denied", "cancelled"] },
+    "output": { "anyOf": [{ "$ref": "#/$defs/reference" }, { "type": "null" }] },
+    "reason_id": { "anyOf": [{ "$ref": "#/$defs/schemaId" }, { "type": "null" }] },
+    "evidence_refs": { "type": "array", "maxItems": 256, "items": { "$ref": "#/$defs/evidence" } }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "schemaId": { "type": "string", "pattern": "^hathq://[a-z0-9./-]+/v[1-9][0-9]*$" },
+    "reference": {
+      "type": "object", "additionalProperties": false,
+      "required": ["owner_id", "reference", "schema_id", "digest_sha256"],
+      "properties": {
+        "owner_id": { "$ref": "#/$defs/token" }, "reference": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "schema_id": { "$ref": "#/$defs/schemaId" }, "digest_sha256": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["owner_id", "reference", "digest_sha256"],
+      "properties": {
+        "owner_id": { "$ref": "#/$defs/token" }, "reference": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "digest_sha256": { "$ref": "#/$defs/digest" }
+      }
+    }
+  }
+}

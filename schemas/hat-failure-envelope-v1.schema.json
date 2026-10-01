@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/failure-envelope/v1",
+  "title": "Bounded semantic HAT failure",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "failure_id", "invocation_id", "component_id", "operation_id", "reason_id", "class", "recovery", "responsibility", "state_revision", "parameters", "next_action_id", "evidence_refs"],
+  "properties": {
+    "schema": { "const": "hathq://hat/failure-envelope/v1" },
+    "failure_id": { "$ref": "#/$defs/token" },
+    "invocation_id": { "$ref": "#/$defs/token" },
+    "component_id": { "$ref": "#/$defs/token" },
+    "operation_id": { "$ref": "#/$defs/schemaId" },
+    "reason_id": { "type": "string", "pattern": "^hathq://vocabulary/reason/[a-z0-9-]+/v[1-9][0-9]*$" },
+    "class": { "enum": ["input", "precondition", "authority", "dependency", "availability", "conflict", "limit", "timeout", "cancelled", "internal"] },
+    "recovery": { "enum": ["none", "owner-action", "retry", "external-change"] },
+    "responsibility": { "enum": ["owner", "hatter", "hat", "external-service"] },
+    "state_revision": { "type": "integer", "minimum": 0 },
+    "parameters": {
+      "type": "object", "maxProperties": 16,
+      "propertyNames": { "$ref": "#/$defs/token" },
+      "additionalProperties": { "$ref": "#/$defs/token" }
+    },
+    "next_action_id": { "oneOf": [{ "type": "null" }, { "type": "string", "pattern": "^hathq://vocabulary/action/[a-z0-9-]+/v[1-9][0-9]*$" }] },
+    "evidence_refs": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/evidence" } }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "recovery": { "const": "owner-action" } } },
+      "then": {
+        "properties": {
+          "responsibility": { "const": "owner" },
+          "next_action_id": { "type": "string" }
+        }
+      },
+      "else": {
+        "properties": {
+          "responsibility": { "not": { "const": "owner" } },
+          "next_action_id": { "type": "null" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "schemaId": { "type": "string", "pattern": "^hathq://[a-z0-9./-]+/v[1-9][0-9]*$" },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["owner_id", "reference", "digest_sha256"],
+      "properties": {
+        "owner_id": { "$ref": "#/$defs/token" },
+        "reference": { "$ref": "#/$defs/token" },
+        "digest_sha256": { "$ref": "#/$defs/digest" }
+      }
+    }
+  }
+}

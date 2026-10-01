@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/subject-reference/v1",
+  "title": "HAT subject reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "subject_id",
+    "kind",
+    "identity_authority_id",
+    "identity_reference",
+    "identity_revision"
+  ],
+  "properties": {
+    "schema": { "const": "hathq://hat/subject-reference/v1" },
+    "subject_id": { "$ref": "#/$defs/stableToken" },
+    "kind": { "enum": ["natural-person", "legal-person"] },
+    "identity_authority_id": { "$ref": "#/$defs/stableToken" },
+    "identity_reference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+    },
+    "identity_revision": { "type": "integer", "minimum": 1 }
+  },
+  "$defs": {
+    "stableToken": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+    }
+  }
+}

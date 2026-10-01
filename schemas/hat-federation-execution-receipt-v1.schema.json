@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/federation-execution-receipt/v1",
+  "title": "Correlated federated HAT execution receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "receipt_id", "invocation_id", "invocation_digest_sha256", "placement_selection_digest_sha256", "location_digest_sha256", "worker_service_id", "worker_identity_ref", "transport_receipt_digest_sha256", "result_digest_sha256", "completed_at_epoch_s"],
+  "properties": {
+    "schema": {"const": "hathq://hat/federation-execution-receipt/v1"},
+    "receipt_id": {"$ref": "#/$defs/token"},
+    "invocation_id": {"$ref": "#/$defs/token"},
+    "invocation_digest_sha256": {"$ref": "#/$defs/digest"},
+    "placement_selection_digest_sha256": {"$ref": "#/$defs/digest"},
+    "location_digest_sha256": {"$ref": "#/$defs/digest"},
+    "worker_service_id": {"$ref": "#/$defs/token"},
+    "worker_identity_ref": {"type": "string", "pattern": "^ihat/[a-z0-9/-]+$", "maxLength": 256},
+    "transport_receipt_digest_sha256": {"$ref": "#/$defs/digest"},
+    "result_digest_sha256": {"$ref": "#/$defs/digest"},
+    "completed_at_epoch_s": {"type": "integer", "minimum": 1}
+  },
+  "$defs": {
+    "token": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$"},
+    "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

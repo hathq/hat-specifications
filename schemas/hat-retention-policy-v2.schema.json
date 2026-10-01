@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/retention-policy/v2",
+  "title": "Versioned HAT retention policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "policy_id", "revision", "scope_ref", "subject_id", "schema_minimum_retention_s", "hat_minimums", "selected_retention_s", "complete_deletion_enabled"],
+  "properties": {
+    "schema": { "const": "hathq://hat/retention-policy/v2" },
+    "policy_id": { "$ref": "#/$defs/stableToken" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "scope_ref": { "$ref": "#/$defs/stableToken" },
+    "subject_id": { "$ref": "#/$defs/stableToken" },
+    "schema_minimum_retention_s": { "type": "integer", "minimum": 0 },
+    "hat_minimums": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/hatMinimum" } },
+    "selected_retention_s": { "type": "integer", "minimum": 0 },
+    "complete_deletion_enabled": { "type": "boolean" }
+  },
+  "$defs": {
+    "stableToken": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "hatMinimum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package_id", "package_digest_sha256", "minimum_retention_s"],
+      "properties": {
+        "package_id": { "type": "string", "pattern": "^hat/[a-z0-9][a-z0-9-]*$" },
+        "package_digest_sha256": { "$ref": "#/$defs/digest" },
+        "minimum_retention_s": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

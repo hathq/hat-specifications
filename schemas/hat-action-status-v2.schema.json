@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/action-status/v2",
+  "title": "HAT invocation status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "invocation_id", "context_partition_id", "state_revision", "phase", "reason_id"],
+  "properties": {
+    "schema": { "const": "hathq://hat/action-status/v2" },
+    "invocation_id": { "$ref": "#/$defs/token" },
+    "context_partition_id": { "$ref": "#/$defs/token" },
+    "state_revision": { "type": "integer", "minimum": 0 },
+    "phase": { "enum": ["queued", "running", "waiting", "unresolved", "completed", "failed", "cancelled"] },
+    "reason_id": { "anyOf": [{ "$ref": "#/$defs/schemaId" }, { "type": "null" }] }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "schemaId": { "type": "string", "pattern": "^hathq://[a-z0-9./-]+/v[1-9][0-9]*$" }
+  }
+}

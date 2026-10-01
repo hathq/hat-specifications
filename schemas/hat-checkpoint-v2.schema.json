@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/checkpoint/v2",
+  "title": "Deterministic HAT projection checkpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "context_partition_id", "package_id", "from_watermark", "to_watermark", "previous_projection_digest_sha256", "new_projection_digest_sha256", "reducer_version"]
+}

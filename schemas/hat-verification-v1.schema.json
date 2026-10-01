@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "hathq://hat/verification/v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "verification_id", "revision", "task", "execution", "desired_state", "verifier", "observation_refs", "outcome", "verified_at_epoch_s", "evidence_refs"],
+  "properties": {
+    "schema": { "const": "hathq://hat/verification/v1" }, "verification_id": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/token" }, "revision": { "type": "integer", "minimum": 1 },
+    "task": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "execution": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "desired_state": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" }, "verifier": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" },
+    "observation_refs": { "type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/reference" } }, "outcome": { "enum": ["satisfied", "unsatisfied", "inconclusive"] }, "verified_at_epoch_s": { "type": "integer", "minimum": 1 },
+    "evidence_refs": { "type": "array", "minItems": 1, "maxItems": 128, "items": { "$ref": "hathq://hat/operational-definitions/v1#/$defs/evidence" } }
+  }
+}

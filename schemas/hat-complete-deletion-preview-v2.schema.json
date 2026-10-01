@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/complete-deletion-preview/v2",
+  "title": "Complete local deletion preview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "deletion_id", "policy_id", "policy_revision", "scope_ref", "subject_id", "through_revision", "checkpoint_id", "checkpoint_digest_sha256", "eligible_at_epoch_s", "previewed_at_epoch_s", "local_store_ids", "local_deletion_classes", "lost_local_capabilities", "external_owners"],
+  "properties": {
+    "schema": { "const": "hathq://hat/complete-deletion-preview/v2" },
+    "deletion_id": { "$ref": "#/$defs/stableToken" },
+    "policy_id": { "$ref": "#/$defs/stableToken" },
+    "policy_revision": { "type": "integer", "minimum": 1 },
+    "scope_ref": { "$ref": "#/$defs/stableToken" },
+    "subject_id": { "$ref": "#/$defs/stableToken" },
+    "through_revision": { "type": "integer", "minimum": 0 },
+    "checkpoint_id": { "$ref": "#/$defs/stableToken" },
+    "checkpoint_digest_sha256": { "$ref": "#/$defs/digest" },
+    "eligible_at_epoch_s": { "type": "integer", "minimum": 0 },
+    "previewed_at_epoch_s": { "type": "integer", "minimum": 0 },
+    "local_store_ids": { "type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": { "$ref": "#/$defs/stableToken" } },
+    "local_deletion_classes": { "type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": { "enum": ["references", "projections", "evidence-links", "digests", "correction-tombstones"] } },
+    "lost_local_capabilities": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "enum": ["recovery", "duplicate-detection", "provenance"] } },
+    "external_owners": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/externalOwner" } }
+  },
+  "$defs": {
+    "stableToken": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "externalOwner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner_id", "deletion_action_id"],
+      "properties": {
+        "owner_id": { "$ref": "#/$defs/stableToken" },
+        "deletion_action_id": { "type": "string", "pattern": "^hathq://vocabulary/action/[a-z0-9][a-z0-9-]*/v[1-9][0-9]*$" }
+      }
+    }
+  }
+}

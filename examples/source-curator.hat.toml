@@ -1,0 +1,14 @@
+schema = "hathq://hat/manifest/v1"
+id = "hat/source-curator"
+name = "Source Curator"
+version = "1.0.0"
+capabilities = ["source-evaluation", "evidence-summarization"]
+decision_boundaries = ["recommend-source-acceptance"]
+input_classifications = ["public", "internal"]
+output_classification = "internal"
+
+[[permissions]]
+resource = "knowledge-source"
+operations = ["inspect-metadata", "propose-classification"]
+mode = "propose"
+

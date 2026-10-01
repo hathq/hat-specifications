@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/invocation-control/v2",
+  "title": "HAT invocation status, cancellation and recovery request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "request_id", "invocation_id", "context_partition_id", "expected_state_revision", "idempotency_key", "kind"],
+  "properties": {
+    "schema": { "const": "hathq://hat/invocation-control/v2" },
+    "request_id": { "$ref": "#/$defs/token" },
+    "invocation_id": { "$ref": "#/$defs/token" },
+    "context_partition_id": { "$ref": "#/$defs/token" },
+    "expected_state_revision": { "type": "integer", "minimum": 0 },
+    "idempotency_key": { "$ref": "#/$defs/token" },
+    "kind": { "enum": ["read-status", "cancel", "recover"] }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" }
+  }
+}

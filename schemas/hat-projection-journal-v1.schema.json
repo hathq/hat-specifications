@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/projection-journal/v1",
+  "title": "Bounded HAT projection journal page",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "context_partition_id", "package_id", "from_revision", "to_revision", "events"],
+  "properties": {
+    "schema": { "const": "hathq://hat/projection-journal/v1" },
+    "context_partition_id": { "$ref": "#/$defs/token" },
+    "package_id": { "type": "string", "pattern": "^hat/[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "from_revision": { "type": "integer", "minimum": 0 },
+    "to_revision": { "type": "integer", "minimum": 0 },
+    "events": {
+      "type": "array", "maxItems": 256,
+      "items": { "$ref": "hathq://hat/projection-event/v1" }
+    }
+  },
+  "$defs": {
+    "token": { "type": "string", "minLength": 1, "maxLength": 96 }
+  }
+}

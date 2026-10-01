@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat-specifications/result/v1",
+  "title": "HAT Specifications CLI result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "command", "ok", "external_actions", "result", "findings"],
+  "properties": {
+    "schema": { "const": "hathq://hat-specifications/result/v1" },
+    "command": { "enum": ["doctor", "validate", "validate-package", "fitting", "usage"] },
+    "ok": { "type": "boolean" },
+    "external_actions": { "const": false },
+    "result": { "type": "object" },
+    "findings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

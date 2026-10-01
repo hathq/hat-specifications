@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/matter-contribution/v1",
+  "title": "Typed representative contribution to a matter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "contribution_id", "revision", "matter_id", "role_instance_id", "kind", "content_ref", "evidence_refs", "supersedes_contribution_id", "recorded_at_epoch_s", "content_digest_sha256"],
+  "properties": {
+    "schema": { "const": "hathq://hat/matter-contribution/v1" },
+    "contribution_id": { "$ref": "#/$defs/token" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "matter_id": { "$ref": "#/$defs/token" },
+    "role_instance_id": { "$ref": "#/$defs/token" },
+    "kind": { "enum": ["observation", "value-concern", "option", "proposal", "decision", "instruction", "external-exchange", "verification", "unresolved-question"] },
+    "content_ref": { "$ref": "#/$defs/reference" },
+    "evidence_refs": { "type": "array", "maxItems": 256, "uniqueItems": true, "items": { "$ref": "#/$defs/reference" } },
+    "supersedes_contribution_id": { "oneOf": [{ "$ref": "#/$defs/token" }, { "type": "null" }] },
+    "recorded_at_epoch_s": { "type": "integer", "minimum": 1 },
+    "content_digest_sha256": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "token": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "reference": { "type": "object", "additionalProperties": false, "required": ["schema", "id", "revision", "digest_sha256"], "properties": { "schema": { "type": "string", "pattern": "^hathq://[^?#@]+$", "maxLength": 512 }, "id": { "type": "string", "minLength": 1, "maxLength": 256 }, "revision": { "type": "integer", "minimum": 1 }, "digest_sha256": { "$ref": "#/$defs/digest" } } }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/package/v2",
+  "title": "Immutable HAT package with one semantic catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "package_id", "repository_id", "version", "specification_version", "manifest", "catalog", "operations"],
+  "properties": {
+    "schema": { "const": "hathq://hat/package/v2" },
+    "package_id": { "$ref": "#/$defs/hatId" },
+    "repository_id": { "$ref": "#/$defs/token" },
+    "version": { "$ref": "#/$defs/version" },
+    "specification_version": { "$ref": "#/$defs/version" },
+    "manifest": { "$ref": "hathq://hat/manifest/v1" },
+    "catalog": { "$ref": "hathq://hat/semantic-catalog/v1" },
+    "information_surfaces": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/informationSurface" } },
+    "service_requirements": { "type": "array", "maxItems": 32, "items": { "$ref": "#/$defs/serviceRequirement" } },
+    "communication_capabilities": { "type": "array", "maxItems": 32, "items": { "$ref": "hathq://hat/communication-capability/v1" } },
+    "setup_templates": { "type": "array", "maxItems": 32, "items": { "$ref": "#/$defs/setupTemplate" } },
+    "operations": { "type": "array", "minItems": 1, "maxItems": 128, "items": { "$ref": "#/$defs/operation" } }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "hatId": { "type": "string", "pattern": "^hat/[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "uri": { "type": "string", "pattern": "^hathq://[a-z0-9][a-z0-9./-]*/v[1-9][0-9]*$" },
+    "canonicalType": { "type": "string", "maxLength": 128, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$" },
+    "semanticIcon": { "enum": ["generic", "entity", "identity", "person", "people", "organization", "place", "jurisdiction", "language", "biology", "health", "time", "event", "state", "action", "reason", "relation", "evidence", "source", "resource", "asset", "money", "accounting", "work", "repository", "software", "communication", "service", "credential", "model", "hat", "layer", "namespace", "directory", "file", "decision", "contract"] },
+    "informationSurface": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "canonical_type", "projection_schema", "data_domain_term_id", "subject_relation"],
+      "properties": {
+        "id": { "$ref": "#/$defs/token" }, "canonical_type": { "$ref": "#/$defs/canonicalType" },
+        "projection_schema": { "$ref": "#/$defs/uri" },
+        "data_domain_term_id": { "type": "string", "pattern": "^hathq://vocabulary/data-domain/[a-z0-9][a-z0-9/-]*/v[1-9][0-9]*$" },
+        "subject_relation": { "enum": ["owned", "managed", "used"] }, "semantic_icon": { "$ref": "#/$defs/semanticIcon" }
+      }
+    },
+    "operationEffect": { "type": "object", "additionalProperties": false, "required": ["kind", "surface_id"], "properties": { "kind": { "enum": ["create", "link", "update"] }, "surface_id": { "$ref": "#/$defs/token" } } },
+    "absoluteProtocolRef": { "type": "string", "minLength": 4, "maxLength": 384, "pattern": "^[a-z][a-z0-9+.-]{1,31}:[^\\s@?#]+$" },
+    "protocolReference": { "type": "object", "additionalProperties": false, "required": ["owner_id", "protocol_id", "version", "specification_ref"], "properties": { "owner_id": { "$ref": "#/$defs/token" }, "protocol_id": { "$ref": "#/$defs/absoluteProtocolRef" }, "version": { "type": "integer", "minimum": 1 }, "specification_ref": { "$ref": "#/$defs/absoluteProtocolRef" } } },
+    "serviceRequirement": { "type": "object", "additionalProperties": false, "required": ["id", "operation_ids"], "properties": { "id": { "$ref": "#/$defs/token" }, "operation_ids": { "type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": { "$ref": "#/$defs/uri" } }, "accepted_protocols": { "type": "array", "maxItems": 16, "uniqueItems": true, "items": { "$ref": "#/$defs/protocolReference" } } } },
+    "setupTemplate": { "type": "object", "additionalProperties": false, "required": ["id", "title", "summary", "action_label", "context_namespace", "projection_schema"], "properties": { "id": { "$ref": "#/$defs/token" }, "title": { "type": "string", "minLength": 1, "maxLength": 160 }, "summary": { "type": "string", "minLength": 1, "maxLength": 512 }, "action_label": { "type": "string", "minLength": 1, "maxLength": 120 }, "context_namespace": { "$ref": "#/$defs/token" }, "projection_schema": { "$ref": "#/$defs/uri" } } },
+    "selector": { "type": "object", "additionalProperties": false, "required": ["namespace", "projection_schema", "required"], "properties": { "namespace": { "$ref": "#/$defs/token" }, "projection_schema": { "$ref": "#/$defs/uri" }, "required": { "type": "boolean" } } },
+    "step": { "type": "object", "additionalProperties": false, "required": ["action_id", "input_schema", "output_schema"], "properties": { "action_id": { "$ref": "#/$defs/uri" }, "input_schema": { "$ref": "#/$defs/uri" }, "output_schema": { "$ref": "#/$defs/uri" } } },
+    "operation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "input_schema", "output_schema", "context_plan", "reducer", "procedure", "handler"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uri" }, "input_schema": { "$ref": "#/$defs/uri" }, "output_schema": { "$ref": "#/$defs/uri" },
+        "context_plan": { "type": "object", "additionalProperties": false, "required": ["id", "selectors", "unresolved_policy"], "properties": { "id": { "$ref": "#/$defs/token" }, "selectors": { "type": "array", "minItems": 1, "maxItems": 64, "items": { "$ref": "#/$defs/selector" } }, "unresolved_policy": { "const": "record-unresolved" } } },
+        "reducer": { "type": "object", "additionalProperties": false, "required": ["id", "strategy", "event_schema", "projection_schema", "conflict_policy"], "properties": { "id": { "$ref": "#/$defs/token" }, "strategy": { "const": "typed-domain-event" }, "event_schema": { "$ref": "#/$defs/uri" }, "projection_schema": { "$ref": "#/$defs/uri" }, "conflict_policy": { "const": "reject" } } },
+        "procedure": { "type": "object", "additionalProperties": false, "required": ["id", "steps"], "properties": { "id": { "$ref": "#/$defs/token" }, "steps": { "type": "array", "minItems": 1, "maxItems": 64, "items": { "$ref": "#/$defs/step" } } } },
+        "handler": { "type": "object", "additionalProperties": false, "required": ["kind", "reference"], "properties": { "kind": { "enum": ["declarative-hat", "hat-service", "ecosystem-adapter", "delegated-hat"] }, "reference": { "type": "string", "minLength": 1, "maxLength": 256 } } },
+        "effects": { "type": "array", "maxItems": 16, "items": { "$ref": "#/$defs/operationEffect" } }
+      }
+    }
+  }
+}

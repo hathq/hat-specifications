@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/binding/v1",
+  "title": "Immutable HAT binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "package_id", "package_digest_sha256", "catalog_digest_sha256", "fitting_digest_sha256", "subject_ref"],
+  "properties": {
+    "schema": { "const": "hathq://hat/binding/v1" },
+    "package_id": { "type": "string", "pattern": "^hat/[a-z0-9][a-z0-9-]*$" },
+    "package_digest_sha256": { "$ref": "#/$defs/digest" },
+    "catalog_digest_sha256": { "$ref": "#/$defs/digest" },
+    "fitting_digest_sha256": { "$ref": "#/$defs/digest" },
+    "subject_ref": { "type": "string", "minLength": 1, "maxLength": 256 }
+  },
+  "$defs": { "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

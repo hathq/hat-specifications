@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat/semantic-clause/v1",
+  "title": "Complete semantic fact or action clause",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "clause_id", "kind", "frame", "bindings", "modality", "positive"],
+  "properties": {
+    "schema": { "const": "hathq://hat/semantic-clause/v1" },
+    "clause_id": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "kind": { "enum": ["fact", "action"] },
+    "frame": { "$ref": "hathq://hat/semantic-catalog/v1#/$defs/frame" },
+    "bindings": { "type": "array", "minItems": 1, "maxItems": 32, "items": { "$ref": "#/$defs/binding" } },
+    "modality": { "enum": ["asserted", "observed", "proposed", "required", "executed"] },
+    "positive": { "type": "boolean" }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "stableRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "id", "revision", "digest_sha256"],
+      "properties": { "schema": { "type": "string", "minLength": 1, "maxLength": 512 }, "id": { "type": "string", "minLength": 1, "maxLength": 512 }, "revision": { "type": "integer", "minimum": 0 }, "digest_sha256": { "$ref": "#/$defs/digest" } }
+    },
+    "scalar": { "type": "object", "required": ["kind", "value"], "properties": { "kind": { "enum": ["null", "bool", "signed", "unsigned", "float", "string", "bytes", "reference"] } } },
+    "binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role", "term", "reference", "value"],
+      "properties": { "role": { "$ref": "hathq://hat/semantic-catalog/v1#/$defs/role" }, "term": { "oneOf": [{ "type": "null" }, { "$ref": "hathq://hat/semantic-catalog/v1#/$defs/termRef" }] }, "reference": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/stableRef" }] }, "value": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/scalar" }] } }
+    }
+  }
+}
