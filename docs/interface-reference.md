@@ -1,27 +1,18 @@
-# hat-specifications
+# hat-specifications interface reference
 
-Define a role package and check whether it fits an explicitly declared capability and permission boundary.
+Use the [usage guide](getting-started.md) for the first steps. This reference preserves the current interface details and operational limits. Run command examples from the repository root, after preparing the exact declared dependencies and registered configuration.
 
-## What you can do
+## Current language boundary
 
-- Author HAT declarations and validate Fitting requirements.
-- Represent bounded grants, execution bindings and results.
-
-## Current scope
-
-A package does not grant authority by itself. Remaining catalog/clause/exchange migration types must not be treated as a replacement language specification.
-
-Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
-
-## Getting started
-
-Install Rust 1.97 or newer and make the declared dependencies available. Use the configured private registry when a dependency is not distributed publicly. Run from this repository:
-
-```sh
-cargo test --locked
-```
-
-## Examples and interface details
+sem-lang owns canonical meaning, compilation outcomes and language memory.
+HatSpec owns installed application capabilities, grants, scopes and execution
+bindings. A sem-lang Complete result is not permission to execute an operation.
+The former HatSpec inference packet, validator and schema have been removed;
+there is no compatibility decoder or conversion adapter for that packet.
+Remaining catalog/clause/exchange types are application migration debt, not a
+replacement language specification. Do not extend their linguistic behavior.
+See Hatter's `docs/internal/sem-lang-migration-gate.md` for the cross-repository
+migration inventory. Source removal does not replace an already released archive.
 
 ## Ownership boundary
 
@@ -60,9 +51,9 @@ HTTP, a Zixcel wire contract and a Hatter management protocol therefore use the 
 `CommunicationProtocolReference`; none becomes a Hatter-specific entity type.
 The declaration binds a protocol to exact package operations, role and
 direction, but carries no endpoint, credential, route, permission or transport
-policy. See [Communication protocol and vocabulary](docs/communication-protocol.md).
+policy. See [Communication protocol and vocabulary](../docs/communication-protocol.md).
 The complete ownership and layer map is in
-[Protocol boundaries](docs/protocol-boundaries.md).
+[Protocol boundaries](../docs/protocol-boundaries.md).
 
 Failures use `hathq://hat/failure-envelope/v1`. A HAT supplies an exact reason
 term, closed class, recovery mode, responsible party, optional next action,
@@ -122,11 +113,3 @@ is only the signed package maximum: Hatter must still issue a narrower runtime
 grant and the provider must enforce that exact grant before every effect. The package remains
 private until the complete wire set is reviewed and released; source-candidate
 schemas are not a registry compatibility claim.
-
-## Documentation and source
-
-[Interface reference](docs/interface-reference.md)
-
-[Usage guide](docs/getting-started.md)
-
-[Examples](examples) · [Schemas](schemas) · [Detailed documentation](docs) · [Implementation and public interfaces](src) · [Verification cases](tests) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
