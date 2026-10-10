@@ -15,10 +15,10 @@ Package distribution is not activated by this documentation. Use the checked-in 
 
 ## Getting started
 
-Install Rust 1.97 or newer and make the declared dependencies available. Use the configured private registry when a dependency is not distributed publicly. Run from this repository:
+Install Rust 1.97 or newer and make the declared dependencies available. Resolve library dependencies from crates.io. Run from this repository:
 
 ```sh
-cargo test --locked
+cargo test --locked --workspace
 ```
 
 ## Examples and interface details
@@ -93,9 +93,9 @@ installation state, provider credentials, Hatter thread state or executable
 provider adapters.
 
 ```bash
-cargo run --offline -- doctor
-cargo run --offline -- validate examples/source-curator.hat.toml
-cargo run --offline -- fitting \
+cargo run --offline -p hat-specifications-cli -- doctor
+cargo run --offline -p hat-specifications-cli -- validate examples/source-curator.hat.toml
+cargo run --offline -p hat-specifications-cli -- fitting \
   examples/source-curator.hat.toml \
   examples/editor.profile.toml
 ```
@@ -130,3 +130,17 @@ schemas are not a registry compatibility claim.
 [Usage guide](docs/getting-started.md)
 
 [Examples](examples) · [Schemas](schemas) · [Detailed documentation](docs) · [Implementation and public interfaces](src) · [Verification cases](tests) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
+
+## Dependency boundary
+
+`zixcel-revision` supplies the public revision contracts from crates.io. This
+package validates HAT contracts; it neither executes effects nor owns provider
+authorization. Its source can be consumed from the pinned public repository
+until its verified crates.io release is available.
+
+## Distribution units
+
+`hat-specifications` is the reusable library for bounded role, grant, invocation
+and fitting contracts. Its manifest disables automatic binary publication.
+`crates/hat-specifications-cli` builds the standalone read-only validator with
+the same public library, preserving the CLI behavior tests independently.

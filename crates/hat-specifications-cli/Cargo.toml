@@ -1,0 +1,24 @@
+[package]
+name = "hat-specifications-cli"
+version = "0.10.0"
+edition = "2024"
+rust-version = "1.97"
+license = "Apache-2.0"
+description = "Standalone read-only HAT schema and fitting validator"
+publish = false
+
+[[bin]]
+name = "hat-specifications"
+path = "src/main.rs"
+
+[dependencies]
+hat-specifications = { path = "../..", version = "=0.10.0" }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "warn"
+pedantic = "warn"
