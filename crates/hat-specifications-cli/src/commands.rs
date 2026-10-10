@@ -1,39 +1,11 @@
-mod cli_input;
-
+//! Dispatch explicit read-only validation commands without external effects.
+use super::{ResultEnvelope, cli_input, envelope, load_manifest};
 use hat_specifications::{
-    RESULT_SCHEMA, doctor, fit, parse_manifest, parse_package, parse_profile, validate_manifest,
-    validate_package,
+    doctor, fit, parse_package, parse_profile, validate_manifest, validate_package,
 };
-use serde::Serialize;
 use serde_json::json;
-use std::{env, process::ExitCode};
 
-#[derive(Serialize)]
-struct ResultEnvelope {
-    schema: &'static str,
-    command: String,
-    ok: bool,
-    external_actions: bool,
-    result: serde_json::Value,
-    findings: Vec<String>,
-}
-
-fn main() -> ExitCode {
-    let arguments = env::args().skip(1).collect::<Vec<_>>();
-    let result = run(&arguments);
-    let ok = result.ok;
-    println!(
-        "{}",
-        serde_json::to_string_pretty(&result).expect("result is serializable")
-    );
-    if ok {
-        ExitCode::SUCCESS
-    } else {
-        ExitCode::from(2)
-    }
-}
-
-fn run(arguments: &[String]) -> ResultEnvelope {
+pub(super) fn run(arguments: &[String]) -> ResultEnvelope {
     match arguments.first().map(String::as_str) {
         Some("doctor") if arguments.len() == 1 => {
             let validation = doctor();
@@ -108,25 +80,5 @@ fn run(arguments: &[String]) -> ResultEnvelope {
             json!({"usage": "hat-specifications <doctor|validate <hat>|validate-package <package>|fitting <hat> <profile>>"}),
             vec!["unsupported arguments".to_string()],
         ),
-    }
-}
-
-fn load_manifest(path: &str) -> Result<hat_specifications::HatManifest, String> {
-    cli_input::read_bounded_utf8(path).and_then(|source| parse_manifest(&source))
-}
-
-fn envelope(
-    command: &str,
-    ok: bool,
-    result: serde_json::Value,
-    findings: Vec<String>,
-) -> ResultEnvelope {
-    ResultEnvelope {
-        schema: RESULT_SCHEMA,
-        command: command.to_string(),
-        ok,
-        external_actions: false,
-        result,
-        findings,
     }
 }

@@ -6,19 +6,11 @@ use std::{
 };
 
 fn repository_root() -> PathBuf {
-    std::env::current_dir().expect("Cargo test working directory")
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..")
 }
 
 fn binary() -> PathBuf {
-    let test_executable = std::env::current_exe().expect("current test executable");
-    test_executable
-        .parent()
-        .and_then(|deps| deps.parent())
-        .expect("Cargo target profile directory")
-        .join(format!(
-            "hat-specifications{}",
-            std::env::consts::EXE_SUFFIX
-        ))
+    PathBuf::from(env!("CARGO_BIN_EXE_hat-specifications"))
 }
 
 fn run(arguments: &[&str]) -> Output {
@@ -58,7 +50,7 @@ fn happy_path_commands_are_deterministic_and_side_effect_free() {
 
 #[test]
 fn cli_rejects_unknown_classification_with_machine_readable_failure() {
-    let source = include_str!("../examples/source-curator.hat.toml")
+    let source = include_str!("../../../examples/source-curator.hat.toml")
         .replace("[\"public\", \"internal\"]", "[\"unknown\"]");
     let mut path = std::env::temp_dir();
     path.push(format!(

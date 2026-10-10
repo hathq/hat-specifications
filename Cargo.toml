@@ -6,8 +6,9 @@ edition = "2024"
 rust-version = "1.97"
 license = "Apache-2.0"
 description = "Versioned HAT and Fitting contract validator"
-publish = ["ecosystem-private"]
+publish = ["crates-io"]
 readme = "README.md"
+autobins = false
 repository = "https://github.com/hathq/hat-specifications"
 homepage = "https://github.com/hathq/hat-specifications"
 documentation = "https://docs.rs/hat-specifications"
@@ -30,3 +31,7 @@ unsafe_code = "forbid"
 [lints.clippy]
 all = "warn"
 pedantic = "warn"
+
+[workspace]
+members = [".", "crates/*"]
+resolver = "3"
