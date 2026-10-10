@@ -18,7 +18,7 @@ external-actions = false
 credentials = false
 
 [dependencies]
-zixcel-revision = { version = "=0.10.0", registry = "zixcel-private", default-features = false }
+zixcel-revision = { version = "=0.10.0", default-features = false }
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.150"
 sha2 = "0.10.9"

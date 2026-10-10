@@ -15,7 +15,7 @@ Package distribution is not activated by this documentation. Use the checked-in 
 
 ## Getting started
 
-Install Rust 1.97 or newer and make the declared dependencies available. Use the configured private registry when a dependency is not distributed publicly. Run from this repository:
+Install Rust 1.97 or newer and make the declared dependencies available. Resolve library dependencies from crates.io. Run from this repository:
 
 ```sh
 cargo test --locked
@@ -130,3 +130,10 @@ schemas are not a registry compatibility claim.
 [Usage guide](docs/getting-started.md)
 
 [Examples](examples) · [Schemas](schemas) · [Detailed documentation](docs) · [Implementation and public interfaces](src) · [Verification cases](tests) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
+
+## Dependency boundary
+
+`zixcel-revision` supplies the public revision contracts from crates.io. This
+package validates HAT contracts; it neither executes effects nor owns provider
+authorization. Its source can be consumed from the pinned public repository
+until a separately verified package release is available.

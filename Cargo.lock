@@ -290,8 +290,8 @@ dependencies = [
 [[package]]
 name = "zixcel-revision"
 version = "0.10.0"
-source = "sparse+https://zixcel-private.invalid/cargo/index/"
-checksum = "712845cc67b0861d14d4cfb8014c843a8ba9f2da4a4e19a2e015b182be723e84"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8990ba1cf704bf5682e567673ced4af424d2a20f83a843832b299e80df69c583"
 dependencies = [
  "serde",
  "sha2",
