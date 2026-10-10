@@ -147,8 +147,8 @@ pub use package_model::{
 };
 pub use package_validation::validate_package;
 pub use perception::{
-    InterpretationRoute, PerceptionBinding, PerceptionError, PerceptionObservation,
-    PerceptionPlan, PerceptionState, plan_perception,
+    InterpretationRoute, PerceptionBinding, PerceptionError, PerceptionObservation, PerceptionPlan,
+    PerceptionState, plan_perception,
 };
 pub use position::{PositionChangeKind, PositionRecord};
 pub use position_validation::{
