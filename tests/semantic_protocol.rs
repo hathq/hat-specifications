@@ -1,8 +1,4 @@
-#[path = "semantic_protocol/support.rs"]
-mod support;
-
 use hat_specifications::*;
-use support::clause;
 
 #[test]
 fn foundation_catalog_is_digest_bound_bilingual_and_domain_free() {
@@ -22,13 +18,4 @@ fn foundation_catalog_is_digest_bound_bilingual_and_domain_free() {
             && item.locale == "en"
             && item.preferred == "Personal identity"
     }));
-}
-
-#[test]
-fn missing_application_role_fails_closed() {
-    let mut value = clause();
-    value
-        .bindings
-        .retain(|binding| binding.role != SemanticClauseRole::Actor);
-    assert!(validate_semantic_clause(&value).is_err());
 }

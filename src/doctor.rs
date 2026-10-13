@@ -12,10 +12,10 @@ use crate::{
     PACKAGE_SCHEMA, PERSON_ASSERTION_SCHEMA, PLACEMENT_SELECTION_SCHEMA, POSITION_RECORD_SCHEMA,
     PROFILE_SCHEMA, PROJECTION_EVENT_SCHEMA, PROJECTION_JOURNAL_SCHEMA, PROJECTION_SCHEMA,
     REPRESENTATIVE_ROLE_ARCHETYPE_SCHEMA, REPRESENTATIVE_ROLE_INSTANCE_SCHEMA, RESULT_SCHEMA,
-    RETENTION_POLICY_SCHEMA, SEMANTIC_CATALOG_SCHEMA, SEMANTIC_CLAUSE_SCHEMA,
-    SEMANTIC_MAPPING_CONTRACT_SCHEMA, SITUATION_CONTRIBUTION_SCHEMA, SUBJECT_REFERENCE_SCHEMA,
-    TASK_SCHEMA, VERIFICATION_SCHEMA, Validation, fit, parse_manifest, parse_package,
-    parse_profile, validate_manifest, validate_package,
+    RETENTION_POLICY_SCHEMA, SEMANTIC_CATALOG_SCHEMA, SEMANTIC_MAPPING_CONTRACT_SCHEMA,
+    SITUATION_CONTRIBUTION_SCHEMA, SUBJECT_REFERENCE_SCHEMA, TASK_SCHEMA, VERIFICATION_SCHEMA,
+    Validation, fit, parse_manifest, parse_package, parse_profile, validate_manifest,
+    validate_package,
 };
 
 const MANIFEST_SCHEMA_DOCUMENT: &str = include_str!("../schemas/hat-manifest-v1.schema.json");
@@ -72,8 +72,6 @@ const FEDERATION_RECEIPT_SCHEMA_DOCUMENT: &str =
     include_str!("../schemas/hat-federation-execution-receipt-v1.schema.json");
 const SEMANTIC_CATALOG_SCHEMA_DOCUMENT: &str =
     include_str!("../schemas/hat-semantic-catalog-v1.schema.json");
-const SEMANTIC_CLAUSE_SCHEMA_DOCUMENT: &str =
-    include_str!("../schemas/hat-semantic-clause-v1.schema.json");
 
 const LOCAL_REGISTRY_LEDGER_SCHEMA_DOCUMENT: &str =
     include_str!("../schemas/hat-local-registry-ledger-v1.schema.json");
@@ -296,11 +294,6 @@ fn check_semantic_schemas(findings: &mut Vec<String>) {
             SEMANTIC_CATALOG_SCHEMA_DOCUMENT,
             SEMANTIC_CATALOG_SCHEMA,
             "semantic catalog schema",
-        ),
-        (
-            SEMANTIC_CLAUSE_SCHEMA_DOCUMENT,
-            SEMANTIC_CLAUSE_SCHEMA,
-            "semantic clause schema",
         ),
         (
             LOCAL_REGISTRY_LEDGER_SCHEMA_DOCUMENT,
