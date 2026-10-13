@@ -1,0 +1,276 @@
+{
+  "repository": "hathq/hat-specifications",
+  "purpose": "HAT package identity, capabilities, scope, grants and execution contracts.",
+  "responsibility_boundary": "sem-lang owns meaning, canonical IR, compilation outcomes and memory rules. Catalog/clause/exchange linguistic migration remains outstanding until actual code and consumer evidence establish its completion.",
+  "packages": [
+    {
+      "manifest": "Cargo.toml",
+      "package": "hat-specifications",
+      "ecosystem": "rust",
+      "description": "Versioned HAT and Fitting contract validator",
+      "interfaces": {
+        "lib": "src/lib.rs",
+        "features": {},
+        "bins": [],
+        "public_modules": [],
+        "public_reexports": [
+          "activity_clause::{\n    SemanticClause, SemanticClauseKind, SemanticModality, SemanticRoleBinding,\n}",
+          "assertion::{KnowledgeState, PersonAssertion}",
+          "assertion_validation::validate_person_assertion",
+          "communication::{\n    CommunicationDirection, CommunicationProtocolReference, CommunicationRole,\n    HatCommunicationCapability, communication_semantic_catalog, validate_communication_capability,\n    validate_communication_protocol_reference,\n}",
+          "composition_digest::composition_proposal_digest",
+          "composition_model::{HatCompositionApproval, HatCompositionMember, HatCompositionProposal}",
+          "composition_validation::{validate_composition_approval, validate_composition_proposal}",
+          "control_grant::{ControlGrant, ControlGrantState, OwnerDecisionReference}",
+          "control_grant_validation::{validate_control_grant, validate_control_grant_revocation}",
+          "doctor::doctor",
+          "execution_evidence::{\n    HatEvidenceRecovery, HatExecutionEvidence, HatExecutionEvidenceBinding,\n    HatExecutionEvidenceStatement, validate_execution_evidence_binding,\n    validate_execution_evidence_statement,\n}",
+          "failure::{\n    HatFailureClass, HatFailureEnvelope, HatFailureRecovery, HatFailureResponsibility,\n}",
+          "failure_validation::{\n    validate_action_failure, validate_action_failure_with_catalog, validate_failure_envelope,\n    validate_failure_envelope_with_catalog,\n}",
+          "federation_digest::{\n    action_result_digest, execution_location_digest, federation_execution_receipt_digest,\n    invocation_digest, placement_selection_digest,\n}",
+          "federation_model::{\n    HatExecutionKind, HatExecutionLocation, HatExecutionLocationSet, HatFederationExecutionReceipt,\n    HatPlacementSelection,\n}",
+          "federation_validation::{\n    validate_execution_location, validate_execution_location_set,\n    validate_federation_execution_receipt, validate_federation_execution_receipt_against,\n    validate_placement_selection,\n}",
+          "fitting::fit",
+          "foundation::foundation_semantic_catalog",
+          "inference_action::{\n    DelegationMode, InferenceAction, InferenceActionState, InferenceDecision,\n    InferenceDecisionState, InferenceDelegation, InferenceEffectKind, InferenceInputSnapshot,\n    InferenceProcedureKind, InferenceProcedureState, InferenceProcedureStep,\n    InferenceProposedEffect, InferenceTrigger, InferenceTriggerKind, InspectableInferenceInput,\n    InspectableValueKind,\n}",
+          "inference_action_validation::validate_inference_action",
+          "information_axis::{\n    ChangePolicy, InformationCoordinate, InformationSensitivity, StructuralAxis,\n}",
+          "information_axis_validation::validate_information_coordinate",
+          "input::{parse_manifest, parse_profile}",
+          "local_registry::{\n    LocalRegistryArtifact, LocalRegistryArtifactKind, LocalRegistryEntry,\n    LocalRegistryInterfaceKind, LocalRegistryLedger, LocalRegistryPublication,\n    LocalRegistryPurpose, LocalRegistrySource, LocalRegistrySourceKind, LocalRegistryVerification,\n    LocalRegistryVerificationState, SemanticFieldMapping, SemanticMappingContract,\n    SemanticMappingUnresolvedPolicy,\n}",
+          "local_registry_validation::{\n    validate_local_registry_ledger, validate_semantic_mapping_contract,\n}",
+          "manifest::validate_manifest",
+          "model::{Fitting, FittingProfile, HatManifest, HatPermission, Validation}",
+          "operational::{\n    Commitment, CommitmentState, Delegation, DelegationState, DesiredState, Execution,\n    ExecutionOutcome, Goal, GoalOrigin, GoalState, IntelligenceArtifact, IntelligenceArtifactKind,\n    Task, TaskState, Verification, VerificationOutcome,\n}",
+          "operational_validation::{\n    authorize_task, complete_task, validate_commitment, validate_delegation,\n    validate_delegation_subset, validate_desired_state, validate_execution, validate_goal,\n    validate_intelligence_artifact, validate_task, validate_verification,\n}",
+          "package_input::parse_package",
+          "package_model::{\n    ContextPlan, ContextSelector, HatHandler, HatInformationSurface, HatOperation,\n    HatOperationEffect, HatOperationEffectKind, HatPackage, HatProcedure, HatServiceRequirement,\n    HatSetupTemplate, HatSubjectRelation, ProcedureStep, ReducerSpec, VocabularyIcon,\n}",
+          "package_validation::validate_package",
+          "perception::{\n    InterpretationRoute, PerceptionBinding, PerceptionError, PerceptionObservation, PerceptionPlan,\n    PerceptionState, plan_perception,\n}",
+          "position::{PositionChangeKind, PositionRecord}",
+          "position_validation::{\n    validate_non_conflicting_position_records, validate_position_record,\n    validate_position_transition,\n}",
+          "profile::validate_profile",
+          "representative::{\n    AUTOMATION_POLICY_SCHEMA, AutomationPolicy, MATTER_CONTRIBUTION_SCHEMA, MATTER_SCHEMA, Matter,\n    MatterContribution, MatterContributionKind, MatterState, REPRESENTATIVE_ROLE_ARCHETYPE_SCHEMA,\n    REPRESENTATIVE_ROLE_INSTANCE_SCHEMA, RepresentativeRoleArchetype, RepresentativeRoleInstance,\n    RepresentativeRoleState, base_representative_role_archetypes, validate_automation_policy,\n    validate_automation_policy_transition, validate_matter, validate_matter_contribution,\n    validate_representative_role_archetype, validate_representative_role_hierarchy,\n    validate_representative_role_instance,\n}",
+          "retention::{\n    CompleteDeletionPreview, CompleteDeletionReceipt, ExternalOwnerDisclosure, HatRetentionMinimum,\n    LocalDeletionClass, LostLocalCapability, RetentionPolicy, StorePurgeReceipt,\n}",
+          "retention_validation::{\n    validate_complete_deletion_preview, validate_complete_deletion_receipt,\n    validate_retention_policy,\n}",
+          "runtime_model::{\n    ActionReference, ContextPartition, EvidenceReference, HatActionResult, HatActionStatus,\n    HatBinding, HatCheckpoint, HatInvocation, HatInvocationControl, HatInvocationControlKind,\n    HatInvocationOutcome, HatInvocationPhase, HatProjection, HatProjectionEvent,\n    HatProjectionJournal, UnresolvedTerm,\n}",
+          "runtime_validation::{\n    validate_action_result, validate_action_status, validate_binding, validate_checkpoint,\n    validate_invocation, validate_invocation_against_package, validate_invocation_control,\n    validate_projection, validate_projection_event, validate_projection_journal,\n}",
+          "semantic_catalog::{\n    SemanticCatalog, SemanticCatalogReference, SemanticClauseFrame, SemanticClauseRole,\n    SemanticLexicalization, SemanticRoleSpec, SemanticTermDefinition, SemanticTermKind,\n    SemanticTermReference,\n}",
+          "semantic_catalog_digest::{\n    semantic_catalog_digest, semantic_clause_frame_digest, semantic_exchange_digest,\n    semantic_term_definition_digest,\n}",
+          "semantic_catalog_validation::{\n    validate_semantic_catalog, validate_semantic_catalog_reference, validate_semantic_clause_frame,\n    validate_semantic_lexicalization, validate_semantic_term_reference,\n}",
+          "semantic_clause_validation::validate_semantic_clause",
+          "semantic_exchange_model::{\n    SemanticComprehensionItem, SemanticComprehensionReport, SemanticExchange,\n    SemanticTermComprehension,\n}",
+          "semantic_exchange_validation::{classify_semantic_exchange, validate_semantic_exchange}",
+          "semantic_model::{\n    EventSemantics, HatSemanticContribution, SemanticAssertion, SemanticBinding, SemanticEntity,\n    SemanticEvent, SemanticEvidence, SemanticInterpretation, SemanticRelation, SemanticScalar,\n    SemanticSource, SemanticStableRef, SemanticTimeInterval,\n}",
+          "semantic_presentation::{\n    SEMANTIC_PRESENTATION_CATALOG_SCHEMA, SemanticPresentationCatalog,\n    SemanticPresentationTemplate, present_semantic_activity,\n    validate_semantic_presentation_catalog,\n}",
+          "semantic_validation::validate_semantic_contribution_against_catalogs",
+          "situation::{\n    SituationContribution, SituationCoordinates, SituationKind, SituationPlace, SituationSource,\n    SituationStatus, SituationTime,\n}",
+          "situation_validation::validate_situation_contribution",
+          "subject::{SubjectKind, SubjectReference}",
+          "subject_validation::{validate_distinct_subjects, validate_subject_reference}"
+        ],
+        "implicit_bins": []
+      },
+      "declared_commands": {}
+    },
+    {
+      "manifest": "crates/hat-specifications-cli/Cargo.toml",
+      "package": "hat-specifications-cli",
+      "ecosystem": "rust",
+      "description": "Standalone read-only HAT schema and fitting validator",
+      "interfaces": {
+        "lib": null,
+        "features": {},
+        "bins": [
+          {
+            "name": "hat-specifications",
+            "path": "src/main.rs"
+          }
+        ],
+        "implicit_bins": []
+      },
+      "declared_commands": {}
+    }
+  ],
+  "schema_definitions": [
+    "schemas/hat-action-result-v1.schema.json",
+    "schemas/hat-action-status-v2.schema.json",
+    "schemas/hat-automation-policy-v1.schema.json",
+    "schemas/hat-binding-v1.schema.json",
+    "schemas/hat-binding-v2.schema.json",
+    "schemas/hat-checkpoint-v2.schema.json",
+    "schemas/hat-commitment-v1.schema.json",
+    "schemas/hat-communication-capability-v1.schema.json",
+    "schemas/hat-complete-deletion-preview-v2.schema.json",
+    "schemas/hat-complete-deletion-receipt-v1.schema.json",
+    "schemas/hat-composition-approval-v1.schema.json",
+    "schemas/hat-composition-proposal-v1.schema.json",
+    "schemas/hat-control-grant-v1.schema.json",
+    "schemas/hat-delegation-v1.schema.json",
+    "schemas/hat-desired-state-v1.schema.json",
+    "schemas/hat-execution-location-set-v1.schema.json",
+    "schemas/hat-execution-location-v1.schema.json",
+    "schemas/hat-execution-v1.schema.json",
+    "schemas/hat-failure-envelope-v1.schema.json",
+    "schemas/hat-federation-execution-receipt-v1.schema.json",
+    "schemas/hat-goal-v1.schema.json",
+    "schemas/hat-inference-action-v1.schema.json",
+    "schemas/hat-information-coordinate-v1.schema.json",
+    "schemas/hat-intelligence-artifact-v1.schema.json",
+    "schemas/hat-invocation-control-v2.schema.json",
+    "schemas/hat-invocation-v3.schema.json",
+    "schemas/hat-invocation-v4.schema.json",
+    "schemas/hat-local-registry-ledger-v1.schema.json",
+    "schemas/hat-manifest-v1.schema.json",
+    "schemas/hat-matter-contribution-v1.schema.json",
+    "schemas/hat-matter-v1.schema.json",
+    "schemas/hat-operational-definitions-v1.schema.json",
+    "schemas/hat-package-v2.schema.json",
+    "schemas/hat-person-assertion-v2.schema.json",
+    "schemas/hat-placement-selection-v2.schema.json",
+    "schemas/hat-position-record-v1.schema.json",
+    "schemas/hat-profile-v1.schema.json",
+    "schemas/hat-projection-event-v1.schema.json",
+    "schemas/hat-projection-journal-v1.schema.json",
+    "schemas/hat-projection-v2.schema.json",
+    "schemas/hat-representative-role-archetype-v1.schema.json",
+    "schemas/hat-representative-role-instance-v1.schema.json",
+    "schemas/hat-retention-policy-v2.schema.json",
+    "schemas/hat-semantic-catalog-v1.schema.json",
+    "schemas/hat-semantic-clause-v1.schema.json",
+    "schemas/hat-semantic-comprehension-report-v1.schema.json",
+    "schemas/hat-semantic-contribution-v1.schema.json",
+    "schemas/hat-semantic-exchange-v1.schema.json",
+    "schemas/hat-semantic-mapping-contract-v1.schema.json",
+    "schemas/hat-situation-contribution-v1.schema.json",
+    "schemas/hat-subject-reference-v1.schema.json",
+    "schemas/hat-task-v2.schema.json",
+    "schemas/hat-verification-v1.schema.json",
+    "schemas/result-v1.schema.json"
+  ],
+  "test_sources": [
+    "crates/hat-specifications-cli/src/commands.rs",
+    "crates/hat-specifications-cli/tests/cli.rs",
+    "src/communication.rs",
+    "src/doctor.rs",
+    "src/federation_validation_support.rs",
+    "src/fitting.rs",
+    "src/inference_action_validation.rs",
+    "src/local_registry_validation.rs",
+    "src/operational_validation.rs",
+    "src/package_validation.rs",
+    "src/representative.rs",
+    "src/security.rs",
+    "src/semantic_catalog_validation.rs",
+    "src/semantic_presentation.rs",
+    "src/semantic_validation.rs",
+    "src/tokens.rs",
+    "tests/composition.rs",
+    "tests/contracts.rs",
+    "tests/control_grant.rs",
+    "tests/execution_evidence.rs",
+    "tests/failure_envelope.rs",
+    "tests/federation_location.rs",
+    "tests/federation_placement.rs",
+    "tests/foundation_scope.rs",
+    "tests/inference_action.rs",
+    "tests/information_axis.rs",
+    "tests/information_surfaces.rs",
+    "tests/invocation_lifecycle.rs",
+    "tests/local_registry.rs",
+    "tests/operational_loop.rs",
+    "tests/package_runtime.rs",
+    "tests/perception.rs",
+    "tests/person_assertion.rs",
+    "tests/position_record.rs",
+    "tests/projection_journal.rs",
+    "tests/representative_matter.rs",
+    "tests/retention_deletion.rs",
+    "tests/semantic_contribution.rs",
+    "tests/semantic_presentation.rs",
+    "tests/semantic_protocol.rs",
+    "tests/semantic_protocol/support.rs",
+    "tests/situation_contribution.rs",
+    "tests/subject_reference.rs"
+  ],
+  "example_sources": [
+    "examples/editor.profile.toml",
+    "examples/source-curator.hat.toml",
+    "examples/source-curator.package.json"
+  ],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "job": "test",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Install declared Rust toolchain",
+              "run": "rustup toolchain install 1.97 --profile minimal --component rustfmt --component clippy",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check every maintained package",
+              "run": "cargo +1.97 fmt --all -- --check\ncargo +1.97 clippy --locked --workspace --all-targets --all-features -- -D warnings\ncargo +1.97 test --locked --workspace --all-targets --all-features\ncargo +1.97 test --locked --workspace --doc --all-features\ncargo +1.97 build --locked --workspace --bins\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Audit exact dependency lock",
+              "run": "cargo install cargo-audit --version 0.22.2 --locked --no-default-features --root \"$RUNNER_TEMP/audit\"\n\"$RUNNER_TEMP/audit/bin/cargo-audit\" audit --deny warnings\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}
