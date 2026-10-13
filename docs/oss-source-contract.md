@@ -77,3 +77,14 @@ Operational catalog/clause metadata still has real package/product consumers and
 is not deleted on a text match. Its remaining language/operation responsibility
 boundary must be established with those consumers. Meaning, canonical IR and
 compilation outcomes continue to belong to sem-lang.
+
+## Unused standalone clause and presentation retirement
+
+The standalone SemanticClause/modality/role-binding wire model, clause validator,
+clause schema and locale clause renderer were used only by their own prototype
+fixtures. Their exports, sources, schema and doctor entry are retired without aliases
+or a replacement language protocol. sem-lang's independent linguistic definitions
+are unaffected. Operational catalog references, their existing digest and catalog
+frame metadata remain unchanged because they participate in current consumers;
+that remaining responsibility boundary is not claimed migrated here. Source version
+remains 0.10.0, with existing published artifacts unchanged.

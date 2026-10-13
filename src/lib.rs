@@ -1,7 +1,6 @@
 #![forbid(unsafe_code)]
 #![doc = "Transport-neutral HAT and Fitting contracts with fail-closed validation."]
 
-mod activity_clause;
 mod assertion;
 mod assertion_validation;
 mod communication;
@@ -49,9 +48,7 @@ mod security;
 mod semantic_catalog;
 mod semantic_catalog_digest;
 mod semantic_catalog_validation;
-mod semantic_clause_validation;
 mod semantic_model;
-mod semantic_presentation;
 mod semantic_validation;
 mod situation;
 mod situation_validation;
@@ -59,9 +56,6 @@ mod subject;
 mod subject_validation;
 mod tokens;
 
-pub use activity_clause::{
-    SemanticClause, SemanticClauseKind, SemanticModality, SemanticRoleBinding,
-};
 pub use assertion::{KnowledgeState, PersonAssertion};
 pub use assertion_validation::validate_person_assertion;
 pub use communication::{
@@ -194,16 +188,10 @@ pub use semantic_catalog_validation::{
     validate_semantic_catalog, validate_semantic_catalog_reference, validate_semantic_clause_frame,
     validate_semantic_lexicalization, validate_semantic_term_reference,
 };
-pub use semantic_clause_validation::validate_semantic_clause;
 pub use semantic_model::{
     EventSemantics, HatSemanticContribution, SemanticAssertion, SemanticBinding, SemanticEntity,
     SemanticEvent, SemanticEvidence, SemanticInterpretation, SemanticRelation, SemanticScalar,
     SemanticSource, SemanticStableRef, SemanticTimeInterval,
-};
-pub use semantic_presentation::{
-    SEMANTIC_PRESENTATION_CATALOG_SCHEMA, SemanticPresentationCatalog,
-    SemanticPresentationTemplate, present_semantic_activity,
-    validate_semantic_presentation_catalog,
 };
 pub use semantic_validation::validate_semantic_contribution_against_catalogs;
 pub use situation::{
@@ -277,7 +265,6 @@ pub const FEDERATION_RECEIPT_SCHEMA: &str = "hathq://hat/federation-execution-re
 /// Declarative semantic contribution emitted by an exact installed HAT package.
 pub const SEMANTIC_CONTRIBUTION_SCHEMA: &str = "hathq://hat/semantic-contribution/v1";
 /// Provider-neutral, complete fact or action clause wire schema.
-pub const SEMANTIC_CLAUSE_SCHEMA: &str = "hathq://hat/semantic-clause/v1";
 /// Local registry provenance ledger shared by development and HAT acquisition surfaces.
 pub const LOCAL_REGISTRY_LEDGER_SCHEMA: &str = "hathq://hat/local-registry-ledger/v1";
 /// External-service schema to Hatter vocabulary mapping contract.
