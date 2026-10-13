@@ -1,20 +1,9 @@
 // Added by the HAT Specifications project, 2026.
 // Purpose: digest application catalogs and declarations without self-referential digest fields.
 
-use crate::{SemanticCatalog, SemanticClauseFrame, SemanticExchange, SemanticTermDefinition};
+use crate::{SemanticCatalog, SemanticClauseFrame, SemanticTermDefinition};
 use sha2::{Digest, Sha256};
 use std::fmt::Write as _;
-
-/// Computes the canonical exchange digest with its digest field cleared.
-///
-/// # Errors
-///
-/// Returns an error when canonical JSON serialization fails.
-pub fn semantic_exchange_digest(value: &SemanticExchange) -> Result<String, String> {
-    let mut canonical = value.clone();
-    canonical.content_digest_sha256.clear();
-    digest(&canonical)
-}
 
 /// Computes a catalog digest independent of embedded self-references.
 ///

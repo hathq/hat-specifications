@@ -13,10 +13,9 @@ use crate::{
     PROFILE_SCHEMA, PROJECTION_EVENT_SCHEMA, PROJECTION_JOURNAL_SCHEMA, PROJECTION_SCHEMA,
     REPRESENTATIVE_ROLE_ARCHETYPE_SCHEMA, REPRESENTATIVE_ROLE_INSTANCE_SCHEMA, RESULT_SCHEMA,
     RETENTION_POLICY_SCHEMA, SEMANTIC_CATALOG_SCHEMA, SEMANTIC_CLAUSE_SCHEMA,
-    SEMANTIC_COMPREHENSION_SCHEMA, SEMANTIC_EXCHANGE_SCHEMA, SEMANTIC_MAPPING_CONTRACT_SCHEMA,
-    SITUATION_CONTRIBUTION_SCHEMA, SUBJECT_REFERENCE_SCHEMA, TASK_SCHEMA, VERIFICATION_SCHEMA,
-    Validation, fit, parse_manifest, parse_package, parse_profile, validate_manifest,
-    validate_package,
+    SEMANTIC_MAPPING_CONTRACT_SCHEMA, SITUATION_CONTRIBUTION_SCHEMA, SUBJECT_REFERENCE_SCHEMA,
+    TASK_SCHEMA, VERIFICATION_SCHEMA, Validation, fit, parse_manifest, parse_package,
+    parse_profile, validate_manifest, validate_package,
 };
 
 const MANIFEST_SCHEMA_DOCUMENT: &str = include_str!("../schemas/hat-manifest-v1.schema.json");
@@ -75,10 +74,7 @@ const SEMANTIC_CATALOG_SCHEMA_DOCUMENT: &str =
     include_str!("../schemas/hat-semantic-catalog-v1.schema.json");
 const SEMANTIC_CLAUSE_SCHEMA_DOCUMENT: &str =
     include_str!("../schemas/hat-semantic-clause-v1.schema.json");
-const SEMANTIC_EXCHANGE_SCHEMA_DOCUMENT: &str =
-    include_str!("../schemas/hat-semantic-exchange-v1.schema.json");
-const SEMANTIC_COMPREHENSION_SCHEMA_DOCUMENT: &str =
-    include_str!("../schemas/hat-semantic-comprehension-report-v1.schema.json");
+
 const LOCAL_REGISTRY_LEDGER_SCHEMA_DOCUMENT: &str =
     include_str!("../schemas/hat-local-registry-ledger-v1.schema.json");
 const SEMANTIC_MAPPING_CONTRACT_SCHEMA_DOCUMENT: &str =
@@ -305,16 +301,6 @@ fn check_semantic_schemas(findings: &mut Vec<String>) {
             SEMANTIC_CLAUSE_SCHEMA_DOCUMENT,
             SEMANTIC_CLAUSE_SCHEMA,
             "semantic clause schema",
-        ),
-        (
-            SEMANTIC_EXCHANGE_SCHEMA_DOCUMENT,
-            SEMANTIC_EXCHANGE_SCHEMA,
-            "semantic exchange schema",
-        ),
-        (
-            SEMANTIC_COMPREHENSION_SCHEMA_DOCUMENT,
-            SEMANTIC_COMPREHENSION_SCHEMA,
-            "semantic comprehension schema",
         ),
         (
             LOCAL_REGISTRY_LEDGER_SCHEMA_DOCUMENT,

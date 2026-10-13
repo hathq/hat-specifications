@@ -144,3 +144,5 @@ until its verified crates.io release is available.
 and fitting contracts. Its manifest disables automatic binary publication.
 `crates/hat-specifications-cli` builds the standalone read-only validator with
 the same public library, preserving the CLI behavior tests independently.
+
+[OSS responsibility and source completion](docs/oss-source-contract.md) defines the supported package boundary and required acceptance. It does not declare unexecuted source, distribution or production checks complete.
