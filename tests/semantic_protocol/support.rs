@@ -1,17 +1,6 @@
 use hat_specifications::*;
 use std::collections::BTreeSet;
 
-pub fn term(kind: SemanticTermKind, id: &str, byte: char) -> SemanticTermReference {
-    SemanticTermReference {
-        catalog_id: "hathq.test.semantic".into(),
-        catalog_digest_sha256: catalog().identity.digest_sha256,
-        term_id: id.into(),
-        version: 1,
-        definition_digest_sha256: hex(byte),
-        kind,
-    }
-}
-
 pub fn clause() -> SemanticClause {
     let catalog = catalog();
     let action = catalog.terms[0].reference.clone();
