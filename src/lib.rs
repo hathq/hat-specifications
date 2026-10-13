@@ -50,8 +50,6 @@ mod semantic_catalog;
 mod semantic_catalog_digest;
 mod semantic_catalog_validation;
 mod semantic_clause_validation;
-mod semantic_exchange_model;
-mod semantic_exchange_validation;
 mod semantic_model;
 mod semantic_presentation;
 mod semantic_validation;
@@ -190,19 +188,13 @@ pub use semantic_catalog::{
     SemanticTermReference,
 };
 pub use semantic_catalog_digest::{
-    semantic_catalog_digest, semantic_clause_frame_digest, semantic_exchange_digest,
-    semantic_term_definition_digest,
+    semantic_catalog_digest, semantic_clause_frame_digest, semantic_term_definition_digest,
 };
 pub use semantic_catalog_validation::{
     validate_semantic_catalog, validate_semantic_catalog_reference, validate_semantic_clause_frame,
     validate_semantic_lexicalization, validate_semantic_term_reference,
 };
 pub use semantic_clause_validation::validate_semantic_clause;
-pub use semantic_exchange_model::{
-    SemanticComprehensionItem, SemanticComprehensionReport, SemanticExchange,
-    SemanticTermComprehension,
-};
-pub use semantic_exchange_validation::{classify_semantic_exchange, validate_semantic_exchange};
 pub use semantic_model::{
     EventSemantics, HatSemanticContribution, SemanticAssertion, SemanticBinding, SemanticEntity,
     SemanticEvent, SemanticEvidence, SemanticInterpretation, SemanticRelation, SemanticScalar,
@@ -286,11 +278,6 @@ pub const FEDERATION_RECEIPT_SCHEMA: &str = "hathq://hat/federation-execution-re
 pub const SEMANTIC_CONTRIBUTION_SCHEMA: &str = "hathq://hat/semantic-contribution/v1";
 /// Provider-neutral, complete fact or action clause wire schema.
 pub const SEMANTIC_CLAUSE_SCHEMA: &str = "hathq://hat/semantic-clause/v1";
-/// Provider-neutral inference request wire schema.
-/// Cross-owner semantic result proposal wire schema.
-pub const SEMANTIC_EXCHANGE_SCHEMA: &str = "hathq://hat/semantic-exchange/v1";
-/// Receiver comprehension report wire schema.
-pub const SEMANTIC_COMPREHENSION_SCHEMA: &str = "hathq://hat/semantic-comprehension-report/v1";
 /// Local registry provenance ledger shared by development and HAT acquisition surfaces.
 pub const LOCAL_REGISTRY_LEDGER_SCHEMA: &str = "hathq://hat/local-registry-ledger/v1";
 /// External-service schema to Hatter vocabulary mapping contract.

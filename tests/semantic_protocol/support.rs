@@ -99,31 +99,6 @@ pub fn catalog() -> SemanticCatalog {
     value
 }
 
-pub fn exchange() -> SemanticExchange {
-    let clause = clause();
-    let mut value = SemanticExchange {
-        schema: SEMANTIC_EXCHANGE_SCHEMA.into(),
-        exchange_id: "exchange-1".into(),
-        sender: reference("subject:alice", 'd'),
-        receiver: reference("subject:bob", '6'),
-        terms: vec![clause.frame.predicate.clone()],
-        frame_digest_sha256: clause.frame.definition_digest_sha256.clone(),
-        output_schema_digest_sha256: hex('7'),
-        clause,
-        source_revision: 1,
-        evidence: vec![reference("evidence:calendar", '8')],
-        information_classification: "internal".into(),
-        purpose: "share-schedule".into(),
-        retention: reference("retention:owner-choice", '9'),
-        issued_at_epoch_s: 100,
-        expires_at_epoch_s: 200,
-        nonce: "nonce-1".into(),
-        content_digest_sha256: String::new(),
-    };
-    value.content_digest_sha256 = semantic_exchange_digest(&value).expect("exchange digest");
-    value
-}
-
 pub fn reference(id: &str, byte: char) -> SemanticStableRef {
     SemanticStableRef {
         schema: "hathq://semantic/reference/v1".into(),

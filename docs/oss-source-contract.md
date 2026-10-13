@@ -62,3 +62,18 @@ Schema definitions in the map remain owned by their canonical validator and
 consumers. An absent schema file means no separate schema file is declared; it does
 not mean the runtime interface has no validation. Do not introduce another common
 schema solely to mirror an implementation type.
+
+## Retired exchange prototype
+
+The unused SemanticExchange/comprehension report API, identity-match classifier,
+digest and two schema documents are removed from this source candidate. An exact
+catalog ID/digest match is not proof that a language owner understood a statement.
+Managed-source references were limited to the prototype, its doctor registration
+and dedicated tests; there is no replacement alias or compatibility decoder.
+Published artifacts remain immutable; the package version remains 0.10.0 as
+instructed. A future release must review this source API removal.
+
+Operational catalog/clause metadata still has real package/product consumers and
+is not deleted on a text match. Its remaining language/operation responsibility
+boundary must be established with those consumers. Meaning, canonical IR and
+compilation outcomes continue to belong to sem-lang.
