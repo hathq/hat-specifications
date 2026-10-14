@@ -262,3 +262,19 @@ fn event_semantics(invocation_id: &str) -> EventSemantics {
         causation_id: None,
     }
 }
+
+#[test]
+fn wire_bound_operation_does_not_require_a_language_clause_frame() {
+    let mut package = package();
+    package.catalog.frames.clear();
+    refresh_catalog_digest(&mut package);
+    assert!(validate_package(&package).valid);
+    // Linguistic frame absence cannot substitute for a declared wire-bound action.
+    let action = package.operations[0].id.clone();
+    package
+        .catalog
+        .terms
+        .retain(|term| term.reference.term_id != action);
+    refresh_catalog_digest(&mut package);
+    assert!(!validate_package(&package).valid);
+}
