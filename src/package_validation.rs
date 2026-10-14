@@ -234,18 +234,6 @@ fn validate_catalog(package: &HatPackage, findings: &mut Vec<String>) {
                 "operation must resolve to one wire-bound action in the package catalog".to_owned(),
             );
         }
-        if package
-            .catalog
-            .frames
-            .iter()
-            .filter(|frame| frame.predicate.term_id == operation.id)
-            .count()
-            != 1
-        {
-            findings.push(
-                "operation must resolve to one clause frame in the package catalog".to_owned(),
-            );
-        }
     }
 }
 

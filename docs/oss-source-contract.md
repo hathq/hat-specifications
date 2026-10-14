@@ -88,3 +88,9 @@ are unaffected. Operational catalog references, their existing digest and catalo
 frame metadata remain unchanged because they participate in current consumers;
 that remaining responsibility boundary is not claimed migrated here. Source version
 remains 0.10.0, with existing published artifacts unchanged.
+
+## Operational declaration without linguistic-frame inference
+
+Operation validation requires one package-owned action bound to its exact input wire schema. It does not additionally require a linguistic clause frame. Frame absence does not relax capability, action, grant, scope, input/output schema or package identity requirements. Language meaning belongs to Sem.
+
+Current catalog frame fields remain part of signed/digested serialized catalogs; this source change neither rewrites them nor adds a compatibility decoder. Their complete physical/schema responsibility migration remains outstanding in coela-release#117. Rust-type search alone is insufficient to declare serialized frame producers unused.
