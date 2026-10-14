@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "repository": "hathq/hat-specifications",
+  "defaultBranch": "main",
+  "requiredWorkflows": [
+    "ci.yml",
+    "oss-policy.yml"
+  ],
+  "packages": [
+    {
+      "ecosystem": "cargo",
+      "manifest": "Cargo.toml",
+      "name": "hat-specifications",
+      "installDirectory": "."
+    }
+  ]
+}
