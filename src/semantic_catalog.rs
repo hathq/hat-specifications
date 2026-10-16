@@ -1,5 +1,5 @@
 // Added by the HAT Specifications project, 2026.
-// Purpose: define exact catalog, term, lexicalization and clause-frame identities.
+// Purpose: define exact operational catalog, term and display identities.
 
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
@@ -48,39 +48,6 @@ pub struct SemanticLexicalization {
     pub search_aliases: BTreeSet<String>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum SemanticClauseRole {
-    Actor,
-    Subject,
-    Object,
-    Value,
-    Source,
-    Destination,
-    Instrument,
-    Time,
-    Place,
-    Evidence,
-    Output,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct SemanticRoleSpec {
-    pub role: SemanticClauseRole,
-    pub required: bool,
-    pub accepted_kinds: BTreeSet<SemanticTermKind>,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct SemanticClauseFrame {
-    pub frame_id: String,
-    pub definition_digest_sha256: String,
-    pub predicate: SemanticTermReference,
-    pub roles: Vec<SemanticRoleSpec>,
-}
-
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SemanticTermDefinition {
@@ -108,5 +75,4 @@ pub struct SemanticCatalog {
     pub incompatibilities: Vec<SemanticCatalogReference>,
     pub terms: Vec<SemanticTermDefinition>,
     pub lexicalizations: Vec<SemanticLexicalization>,
-    pub frames: Vec<SemanticClauseFrame>,
 }

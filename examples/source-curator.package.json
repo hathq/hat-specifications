@@ -76,7 +76,7 @@
     "identity": {
       "catalog_id": "hat-source-curator",
       "version": 1,
-      "digest_sha256": "311a44b293e80c8b799e920840b66686a91221ae591590777968df1a78e9ccb0"
+      "digest_sha256": "5f4fd04b970039a1b5d937b6d38d7b87a30fc4ae723a557f8ff3ad8ae8c8f97b"
     },
     "owner_repository_id": "hat-source-curator",
     "foundation": false,
@@ -84,7 +84,7 @@
       {
         "catalog_id": "hathq.foundation",
         "version": 1,
-        "digest_sha256": "6b618dff030e551bafd6b1a70fe6daf71e2873de9c2230f4cf71e9ac9fbf2c0f"
+        "digest_sha256": "7ed387a86fe00a320784c181a2128da856ccb3e5e3930040ca39d9f5b627a465"
       }
     ],
     "incompatibilities": [],
@@ -92,7 +92,7 @@
       {
         "reference": {
           "catalog_id": "hat-source-curator",
-          "catalog_digest_sha256": "311a44b293e80c8b799e920840b66686a91221ae591590777968df1a78e9ccb0",
+          "catalog_digest_sha256": "5f4fd04b970039a1b5d937b6d38d7b87a30fc4ae723a557f8ff3ad8ae8c8f97b",
           "term_id": "hathq://vocabulary/entity/knowledge-source/v1",
           "version": 1,
           "definition_digest_sha256": "294cee0ebc8d80779bed3e62090bb9ed170afad96cd9bbcba8c48c0271946da4",
@@ -108,7 +108,7 @@
       {
         "reference": {
           "catalog_id": "hat-source-curator",
-          "catalog_digest_sha256": "311a44b293e80c8b799e920840b66686a91221ae591590777968df1a78e9ccb0",
+          "catalog_digest_sha256": "5f4fd04b970039a1b5d937b6d38d7b87a30fc4ae723a557f8ff3ad8ae8c8f97b",
           "term_id": "hathq://vocabulary/action/review-source/v1",
           "version": 1,
           "definition_digest_sha256": "506c2d1ee32cbb6a51437b7381f31472033ce5f87ea613bfe92918ebbd9498df",
@@ -122,36 +122,6 @@
         "range": []
       }
     ],
-    "lexicalizations": [],
-    "frames": [
-      {
-        "frame_id": "review-source-procedure-frame",
-        "definition_digest_sha256": "3c0c91e73c2285f701db7ffa31691e5673a80f0eea07f9cd29a96a0a0f90e20f",
-        "predicate": {
-          "catalog_id": "hat-source-curator",
-          "catalog_digest_sha256": "311a44b293e80c8b799e920840b66686a91221ae591590777968df1a78e9ccb0",
-          "term_id": "hathq://vocabulary/action/review-source/v1",
-          "version": 1,
-          "definition_digest_sha256": "506c2d1ee32cbb6a51437b7381f31472033ce5f87ea613bfe92918ebbd9498df",
-          "kind": "action"
-        },
-        "roles": [
-          {
-            "role": "actor",
-            "required": true,
-            "accepted_kinds": [
-              "entity-type"
-            ]
-          },
-          {
-            "role": "object",
-            "required": true,
-            "accepted_kinds": [
-              "concept"
-            ]
-          }
-        ]
-      }
-    ]
+    "lexicalizations": []
   }
 }

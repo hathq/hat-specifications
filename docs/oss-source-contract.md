@@ -84,13 +84,14 @@ The standalone SemanticClause/modality/role-binding wire model, clause validator
 clause schema and locale clause renderer were used only by their own prototype
 fixtures. Their exports, sources, schema and doctor entry are retired without aliases
 or a replacement language protocol. sem-lang's independent linguistic definitions
-are unaffected. Operational catalog references, their existing digest and catalog
-frame metadata remain unchanged because they participate in current consumers;
-that remaining responsibility boundary is not claimed migrated here. Source version
-remains 0.10.0, with existing published artifacts unchanged.
+are unaffected. Operational catalog references remain; the later catalog-frame
+retirement below changes the development source shape and its digests. Source
+version remains 0.10.0, with existing published artifacts unchanged.
 
 ## Operational declaration without linguistic-frame inference
 
 Operation validation requires one package-owned action bound to its exact input wire schema. It does not additionally require a linguistic clause frame. Frame absence does not relax capability, action, grant, scope, input/output schema or package identity requirements. Language meaning belongs to Sem.
 
-Current catalog frame fields remain part of signed/digested serialized catalogs; this source change neither rewrites them nor adds a compatibility decoder. Their complete physical/schema responsibility migration remains outstanding in coela-release#117. Rust-type search alone is insufficient to declare serialized frame producers unused.
+The development catalog no longer contains clause frames or their role/digest/validator APIs. Old JSON with a `frames` field is rejected, including an empty array; no alias or compatibility decoder is added. Language meaning still belongs to sem-lang. Display lexicalizations and operational term references remain a separate responsibility audit, not a completed semantic migration.
+
+Removing even empty frame metadata changes canonical catalog bytes, dependencies, package hashes and outer signed selection. External producers and consumers must be updated and tested together before artifact release. Existing immutable releases must not be rehashed in place. See [catalog source shape](catalog-source-shape.md) for acceptance limits.

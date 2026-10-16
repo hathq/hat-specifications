@@ -74,7 +74,6 @@ pub fn foundation_semantic_catalog() -> SemanticCatalog {
         incompatibilities: Vec::new(),
         terms,
         lexicalizations,
-        frames: Vec::new(),
     };
     let digest = semantic_catalog_digest(&catalog).expect("foundation catalog digest");
     catalog.identity.digest_sha256.clone_from(&digest);

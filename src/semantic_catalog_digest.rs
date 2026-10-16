@@ -1,7 +1,7 @@
 // Added by the HAT Specifications project, 2026.
 // Purpose: digest application catalogs and declarations without self-referential digest fields.
 
-use crate::{SemanticCatalog, SemanticClauseFrame, SemanticTermDefinition};
+use crate::{SemanticCatalog, SemanticTermDefinition};
 use sha2::{Digest, Sha256};
 use std::fmt::Write as _;
 
@@ -19,9 +19,6 @@ pub fn semantic_catalog_digest(value: &SemanticCatalog) -> Result<String, String
     for lexicalization in &mut canonical.lexicalizations {
         lexicalization.term.catalog_digest_sha256.clear();
     }
-    for frame in &mut canonical.frames {
-        frame.predicate.catalog_digest_sha256.clear();
-    }
     digest(&canonical)
 }
 
@@ -34,18 +31,6 @@ pub fn semantic_term_definition_digest(value: &SemanticTermDefinition) -> Result
     let mut canonical = value.clone();
     canonical.reference.definition_digest_sha256.clear();
     clear_definition_catalog_digests(&mut canonical);
-    digest(&canonical)
-}
-
-/// Computes a clause-frame digest independent of its embedded digest and catalog self-reference.
-///
-/// # Errors
-///
-/// Returns an error when canonical JSON serialization fails.
-pub fn semantic_clause_frame_digest(value: &SemanticClauseFrame) -> Result<String, String> {
-    let mut canonical = value.clone();
-    canonical.definition_digest_sha256.clear();
-    canonical.predicate.catalog_digest_sha256.clear();
     digest(&canonical)
 }
 

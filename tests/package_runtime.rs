@@ -123,11 +123,6 @@ fn refresh_catalog_digest(package: &mut HatPackage) {
                 .clone_from(&digest);
         }
     }
-    for frame in &mut package.catalog.frames {
-        if frame.predicate.catalog_id == catalog_id {
-            frame.predicate.catalog_digest_sha256.clone_from(&digest);
-        }
-    }
 }
 
 #[test]
@@ -266,7 +261,6 @@ fn event_semantics(invocation_id: &str) -> EventSemantics {
 #[test]
 fn wire_bound_operation_does_not_require_a_language_clause_frame() {
     let mut package = package();
-    package.catalog.frames.clear();
     refresh_catalog_digest(&mut package);
     assert!(validate_package(&package).valid);
     // Linguistic frame absence cannot substitute for a declared wire-bound action.
