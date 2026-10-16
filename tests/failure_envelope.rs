@@ -44,9 +44,6 @@ fn catalog() -> SemanticCatalog {
     for term in &mut catalog.terms {
         term.reference.catalog_digest_sha256.clone_from(&digest);
     }
-    for frame in &mut catalog.frames {
-        frame.predicate.catalog_digest_sha256.clone_from(&digest);
-    }
     catalog
 }
 

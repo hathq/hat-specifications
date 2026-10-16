@@ -1,10 +1,10 @@
 // Added by the HAT Specifications project, 2026.
-// Purpose: validate exact catalog identities, terms, lexicalizations and frames.
+// Purpose: validate exact operational catalog identities, terms and display metadata.
 
+use crate::SemanticTermReference;
 use crate::semantic_validation::{digest, token};
 use crate::{SEMANTIC_CATALOG_SCHEMA, SemanticCatalog, SemanticCatalogReference};
-use crate::{SemanticClauseFrame, SemanticLexicalization, SemanticTermDefinition};
-use crate::{SemanticTermKind, SemanticTermReference};
+use crate::{SemanticLexicalization, SemanticTermDefinition};
 use std::collections::BTreeSet;
 
 /// Validates a catalog identity and digest.
@@ -52,35 +52,6 @@ pub fn validate_semantic_lexicalization(value: &SemanticLexicalization) -> Resul
         .any(|alias| !text(alias, 160) || alias == &value.preferred)
     {
         return Err("semantic lexicalization alias is invalid".into());
-    }
-    Ok(())
-}
-
-/// Validates a closed typed clause frame.
-///
-/// # Errors
-///
-/// Returns an error when the predicate, digest or role declarations are invalid.
-pub fn validate_semantic_clause_frame(value: &SemanticClauseFrame) -> Result<(), String> {
-    token(&value.frame_id, "semantic frame id")?;
-    digest(&value.definition_digest_sha256)?;
-    validate_semantic_term_reference(&value.predicate)?;
-    if crate::semantic_clause_frame_digest(value)? != value.definition_digest_sha256 {
-        return Err("semantic frame digest differs".into());
-    }
-    if !matches!(
-        value.predicate.kind,
-        SemanticTermKind::Action | SemanticTermKind::Predicate | SemanticTermKind::Relation
-    ) || value.roles.is_empty()
-        || value.roles.len() > 16
-    {
-        return Err("semantic frame predicate or role count is invalid".into());
-    }
-    let mut roles = BTreeSet::new();
-    for role in &value.roles {
-        if !roles.insert(role.role) || role.accepted_kinds.is_empty() {
-            return Err("semantic frame roles must be unique and typed".into());
-        }
     }
     Ok(())
 }
@@ -143,12 +114,6 @@ pub fn validate_semantic_catalog(value: &SemanticCatalog) -> Result<(), String> 
             ))
         {
             return Err("semantic lexicalization term or locale is invalid".into());
-        }
-    }
-    for frame in &value.frames {
-        validate_semantic_clause_frame(frame)?;
-        if !terms.contains(&identity(&frame.predicate)) {
-            return Err("semantic frame predicate is outside its catalog".into());
         }
     }
     if crate::semantic_catalog_digest(value)? != value.identity.digest_sha256 {

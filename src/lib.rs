@@ -177,15 +177,12 @@ pub use runtime_validation::{
     validate_projection, validate_projection_event, validate_projection_journal,
 };
 pub use semantic_catalog::{
-    SemanticCatalog, SemanticCatalogReference, SemanticClauseFrame, SemanticClauseRole,
-    SemanticLexicalization, SemanticRoleSpec, SemanticTermDefinition, SemanticTermKind,
-    SemanticTermReference,
+    SemanticCatalog, SemanticCatalogReference, SemanticLexicalization, SemanticTermDefinition,
+    SemanticTermKind, SemanticTermReference,
 };
-pub use semantic_catalog_digest::{
-    semantic_catalog_digest, semantic_clause_frame_digest, semantic_term_definition_digest,
-};
+pub use semantic_catalog_digest::{semantic_catalog_digest, semantic_term_definition_digest};
 pub use semantic_catalog_validation::{
-    validate_semantic_catalog, validate_semantic_catalog_reference, validate_semantic_clause_frame,
+    validate_semantic_catalog, validate_semantic_catalog_reference,
     validate_semantic_lexicalization, validate_semantic_term_reference,
 };
 pub use semantic_model::{

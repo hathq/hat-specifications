@@ -88,7 +88,6 @@ pub fn communication_semantic_catalog() -> SemanticCatalog {
         incompatibilities: Vec::new(),
         terms,
         lexicalizations,
-        frames: Vec::new(),
     };
     let digest = semantic_catalog_digest(&catalog).expect("communication catalog digest");
     catalog.identity.digest_sha256.clone_from(&digest);
