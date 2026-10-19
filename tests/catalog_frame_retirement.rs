@@ -58,13 +58,10 @@ fn empty_frame_removal_changes_canonical_digest_and_requires_new_package_bytes()
     for display in &mut canonical.lexicalizations {
         display.term.catalog_digest_sha256.clear();
     }
-    let current = format!(
-        "{:x}",
-        Sha256::digest(
-            serde_json::to_vec(&serde_json::to_value(&canonical).expect("canonical value"))
-                .expect("canonical")
-        )
-    );
+    let current = hex::encode(Sha256::digest(
+        serde_json::to_vec(&serde_json::to_value(&canonical).expect("canonical value"))
+            .expect("canonical"),
+    ));
     assert_eq!(
         current,
         semantic_catalog_digest(&catalog).expect("current digest")
@@ -73,10 +70,7 @@ fn empty_frame_removal_changes_canonical_digest_and_requires_new_package_bytes()
     old["frames"] = serde_json::json!([]);
     assert_ne!(
         current,
-        format!(
-            "{:x}",
-            Sha256::digest(serde_json::to_vec(&old).expect("old shape"))
-        )
+        hex::encode(Sha256::digest(serde_json::to_vec(&old).expect("old shape")))
     );
     let package = parse_package(include_str!("../examples/source-curator.package.json"))
         .expect("new example");

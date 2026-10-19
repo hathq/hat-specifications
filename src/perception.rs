@@ -164,7 +164,7 @@ pub fn plan_perception(
     canonical.interpretations.clone_from(&routes);
     let bytes = serde_json::to_vec(&("hat/perception/plan/1", canonical, observation))
         .map_err(|_| PerceptionError::InvalidBinding)?;
-    let request_key = format!("{:x}", Sha256::digest(bytes));
+    let request_key = hex::encode(Sha256::digest(bytes));
     Ok(PerceptionPlan {
         request_key,
         role_ref: binding.role_ref.clone(),
