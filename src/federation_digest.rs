@@ -68,5 +68,5 @@ fn digest<T: Serialize>(domain: &[u8], value: &T) -> Result<String, serde_json::
     let mut hash = Sha256::new();
     hash.update(domain);
     hash.update(bytes);
-    Ok(format!("{:x}", hash.finalize()))
+    Ok(hex::encode(hash.finalize()))
 }
