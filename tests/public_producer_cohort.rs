@@ -73,7 +73,7 @@ fn modified_wire_contract_or_catalog_identity_cannot_reuse_selected_bytes() {
             let mut changed = package.clone();
             match mutation {
                 "wire" => {
-                    changed.catalog.terms[0].wire_schema = Some("urn:test:substituted".into())
+                    changed.catalog.terms[0].wire_schema = Some("urn:test:substituted".into());
                 }
                 "catalog" => changed.catalog.identity.digest_sha256 = "f".repeat(64),
                 _ => changed.catalog.terms[0].reference.definition_digest_sha256 = "f".repeat(64),
