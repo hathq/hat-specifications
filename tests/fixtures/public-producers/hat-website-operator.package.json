@@ -1,0 +1,151 @@
+{
+  "schema": "hathq://hat/package/v2",
+  "package_id": "hat/website-operator",
+  "repository_id": "hat-website-operator",
+  "version": "0.10.1",
+  "specification_version": "1.0.0",
+  "manifest": {
+    "schema": "hathq://hat/manifest/v1",
+    "id": "hat/website-operator",
+    "name": "Website Operator",
+    "version": "0.10.1",
+    "capabilities": [
+      "publication-readiness-review",
+      "site-health-review"
+    ],
+    "decision_boundaries": [
+      "recommend-publication"
+    ],
+    "input_classifications": [
+      "public",
+      "internal"
+    ],
+    "output_classification": "public",
+    "permissions": [
+      {
+        "resource": "publication-candidate",
+        "operations": [
+          "inspect-metadata",
+          "propose-publication"
+        ],
+        "mode": "propose"
+      }
+    ]
+  },
+  "service_requirements": [
+    {
+      "id": "github-workflow-dispatch",
+      "operation_ids": [
+        "hathq://vocabulary/action/dispatch-github-workflow/v1"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "hathq://vocabulary/action/review-publication/v1",
+      "input_schema": "hathq://hat-website-operator/review-publication-input/v1",
+      "output_schema": "hathq://hat-website-operator/review-publication-output/v1",
+      "context_plan": {
+        "id": "review-publication-context",
+        "selectors": [
+          {
+            "namespace": "publication-candidate",
+            "projection_schema": "hathq://hat-website-operator/publication-candidate/v1",
+            "required": true
+          }
+        ],
+        "unresolved_policy": "record-unresolved"
+      },
+      "reducer": {
+        "id": "review-publication-reducer",
+        "strategy": "typed-domain-event",
+        "event_schema": "hathq://hat-website-operator/review-publication-event/v1",
+        "projection_schema": "hathq://hat-website-operator/review-publication-projection/v1",
+        "conflict_policy": "reject"
+      },
+      "procedure": {
+        "id": "review-publication-procedure",
+        "steps": [
+          {
+            "action_id": "hathq://vocabulary/action/review-publication/v1",
+            "input_schema": "hathq://hat-website-operator/review-publication-input/v1",
+            "output_schema": "hathq://hat-website-operator/review-publication-output/v1"
+          }
+        ]
+      },
+      "handler": {
+        "kind": "declarative-hat",
+        "reference": "review-publication-procedure"
+      }
+    }
+  ],
+  "catalog": {
+    "schema": "hathq://hat/semantic-catalog/v1",
+    "identity": {
+      "catalog_id": "hat-website-operator",
+      "version": 1,
+      "digest_sha256": "2e02e9f91a1c06a09d03c2160018021fbc75a10d6688bafd411895f10b0e43c7"
+    },
+    "owner_repository_id": "hat-website-operator",
+    "foundation": false,
+    "dependencies": [
+      {
+        "catalog_id": "hathq.foundation",
+        "version": 1,
+        "digest_sha256": "7ed387a86fe00a320784c181a2128da856ccb3e5e3930040ca39d9f5b627a465"
+      }
+    ],
+    "incompatibilities": [],
+    "terms": [
+      {
+        "reference": {
+          "catalog_id": "hat-website-operator",
+          "catalog_digest_sha256": "2e02e9f91a1c06a09d03c2160018021fbc75a10d6688bafd411895f10b0e43c7",
+          "term_id": "hathq://vocabulary/entity/publication-candidate/v1",
+          "version": 1,
+          "definition_digest_sha256": "ad3ea61b26baae6615b24e63c510564cff31525bfc930d0828da111680331da2",
+          "kind": "entity-type"
+        },
+        "wire_schema": "hathq://hat-website-operator/publication-candidate/v1",
+        "semantic_icon": "generic",
+        "dependencies": [],
+        "is_a": [],
+        "domain": [],
+        "range": []
+      },
+      {
+        "reference": {
+          "catalog_id": "hat-website-operator",
+          "catalog_digest_sha256": "2e02e9f91a1c06a09d03c2160018021fbc75a10d6688bafd411895f10b0e43c7",
+          "term_id": "hathq://vocabulary/state/publication-readiness/v1",
+          "version": 1,
+          "definition_digest_sha256": "599d414ce49ccdd6481a33e2f800b22c7267c252d02247e0eef4115a7ab99f45",
+          "kind": "state-type"
+        },
+        "wire_schema": "hathq://hat-website-operator/publication-readiness/v1",
+        "semantic_icon": "generic",
+        "dependencies": [],
+        "is_a": [],
+        "domain": [],
+        "range": []
+      },
+      {
+        "reference": {
+          "catalog_id": "hat-website-operator",
+          "catalog_digest_sha256": "2e02e9f91a1c06a09d03c2160018021fbc75a10d6688bafd411895f10b0e43c7",
+          "term_id": "hathq://vocabulary/action/review-publication/v1",
+          "version": 1,
+          "definition_digest_sha256": "6a82059052bcfc081346a5e23ca281a7e0445acfb964d53d7c2bb67986705b1a",
+          "kind": "action"
+        },
+        "wire_schema": "hathq://hat-website-operator/review-publication-input/v1",
+        "semantic_icon": "generic",
+        "dependencies": [],
+        "is_a": [],
+        "domain": [],
+        "range": []
+      }
+    ],
+    "lexicalizations": []
+  }
+}

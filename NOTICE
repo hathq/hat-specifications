@@ -2,3 +2,10 @@
 hat-specifications
 Copyright 2026 HAT Inc.
 See LICENSE for the selected terms. Prior grants and third-party licenses retain their respective terms.
+
+Public producer descriptor test fixtures:
+Copyright 2026 HAT Inc.; Apache-2.0.
+Original sources: hathq/hat-source-curator and hathq/hat-website-operator.
+Exact revisions, source URLs, Git blob identities and unmodified-byte hashes are
+recorded in tests/fixtures/public-producers/sources.json. Their inclusion does not
+grant installation or execution authority.

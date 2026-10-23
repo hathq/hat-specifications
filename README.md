@@ -9,7 +9,7 @@ Define a role package and check whether it fits an explicitly declared capabilit
 
 ## Current scope
 
-A package does not grant authority by itself. Remaining catalog/clause/exchange migration types must not be treated as a replacement language specification.
+A package does not grant authority by itself. Remaining catalog/display/application migration types must not be treated as a replacement language specification.
 
 Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
 

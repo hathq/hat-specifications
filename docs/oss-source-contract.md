@@ -41,7 +41,7 @@ Inventory baseline source: `5812bdf839dcdf9c82857f68c81548116f2db249`. This base
 
 [oss-source-map.json](oss-source-map.json) is the tracked map of package
 interfaces, declared commands, schemas, functional test sources, examples and CI
-jobs. It keeps each responsibility attached to its actual physical source owner.
+workflow source paths. Job definitions are read from those files rather than copied. It keeps each responsibility attached to its actual physical source owner.
 Public exports are supported only within this repository's responsibility boundary;
 a filename or schema declaration does not grant product or cloud authority.
 
@@ -73,7 +73,7 @@ and dedicated tests; there is no replacement alias or compatibility decoder.
 Published artifacts remain immutable; the package version remains 0.10.0 as
 instructed. A future release must review this source API removal.
 
-Operational catalog/clause metadata still has real package/product consumers and
+Operational catalog/display and application contribution metadata still has real package/product consumers and
 is not deleted on a text match. Its remaining language/operation responsibility
 boundary must be established with those consumers. Meaning, canonical IR and
 compilation outcomes continue to belong to sem-lang.

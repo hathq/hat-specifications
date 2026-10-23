@@ -9,7 +9,7 @@ HatSpec owns installed application capabilities, grants, scopes and execution
 bindings. A sem-lang Complete result is not permission to execute an operation.
 The former HatSpec inference packet, validator and schema have been removed;
 there is no compatibility decoder or conversion adapter for that packet.
-Remaining catalog/clause/exchange types are application migration debt, not a
+Remaining catalog/display/application types are application migration debt, not a
 replacement language specification. Do not extend their linguistic behavior.
 See Hatter's `docs/internal/sem-lang-migration-gate.md` for the cross-repository
 migration inventory. Source removal does not replace an already released archive.

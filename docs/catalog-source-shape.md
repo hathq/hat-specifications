@@ -44,3 +44,8 @@ envelope tests continue to exercise operational validation.
 These owner tests alone are insufficient to accept an external producer cohort,
 an installed consumer, a signed registry release or a production activation.
 Keep those acceptances distinct and record the exact consumer source used.
+
+The [semantic ownership inventory](semantic-ownership-acceptance.md) now records
+the retained catalog/display/application boundaries and the exact two-producer
+offline CLI/invocation acceptance cohort. It keeps real RPC, semantic migration,
+publication and runtime authorization outstanding.
