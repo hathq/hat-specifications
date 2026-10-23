@@ -1,7 +1,7 @@
 {
   "repository": "hathq/hat-specifications",
   "purpose": "HAT package identity, capabilities, scope, grants and execution contracts.",
-  "responsibility_boundary": "sem-lang owns meaning, canonical IR, compilation outcomes and memory rules. Catalog/clause/exchange linguistic migration remains outstanding until actual code and consumer evidence establish its completion.",
+  "responsibility_boundary": "sem-lang owns meaning, canonical IR, compilation outcomes and memory rules. Catalog/display/application migration remains outstanding. Unused clause, exchange and frame prototypes are retired without compatibility decoders.",
   "packages": [
     {
       "manifest": "Cargo.toml",
