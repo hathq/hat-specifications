@@ -82,3 +82,27 @@ fn unsupported_arguments_have_a_stable_nonzero_contract() {
     assert_eq!(document["command"], "usage");
     assert_eq!(document["ok"], false);
 }
+
+#[test]
+fn independent_cli_accepts_exact_public_producers_without_operational_authority() {
+    let sources: Value = serde_json::from_str(include_str!(
+        "../../../tests/fixtures/public-producers/sources.json"
+    ))
+    .expect("sources");
+    for source in sources["sources"].as_array().expect("selected producers") {
+        let fixture = format!(
+            "tests/fixtures/public-producers/{}",
+            source["fixture"].as_str().expect("fixture")
+        );
+        let first = run(&["validate-package", &fixture]);
+        let replay = run(&["validate-package", &fixture]);
+        assert!(first.status.success());
+        assert!(first.stderr.is_empty());
+        assert_eq!(first.stdout, replay.stdout);
+        let result = json(&first);
+        assert_eq!(result["ok"], true);
+        assert_eq!(result["external_actions"], false);
+        assert_eq!(result["result"]["package_id"], source["package_id"]);
+        assert_eq!(result["findings"], serde_json::json!([]));
+    }
+}

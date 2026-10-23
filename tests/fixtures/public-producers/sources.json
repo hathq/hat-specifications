@@ -1,0 +1,32 @@
+{
+  "schema": "hat-specifications.public-producer-fixtures.v1",
+  "purpose": "Exact public source descriptors for offline contract acceptance; no release, signature, grant or installation authority.",
+  "sources": [
+    {
+      "repository": "hathq/hat-source-curator",
+      "revision": "5a35e0e0b2c9fbcc0327433d9d293a4bf382f474",
+      "path": "hat.package.json",
+      "fixture": "hat-source-curator.package.json",
+      "sha256": "51837d7ec15f97a25c6c6e03509e41f9d9339e8615986afb968012dab2ec10ed",
+      "git_blob": "b29db1f881d9fa338d8313c08638a3bf123ac475",
+      "package_id": "hat/source-curator",
+      "version": "0.10.1",
+      "catalog_sha256": "43b687174bd01c0822fc6d4565f0450b30fc1a1456ca240ed1571029f990a1c6",
+      "license": "Apache-2.0",
+      "source_url": "https://github.com/hathq/hat-source-curator/blob/5a35e0e0b2c9fbcc0327433d9d293a4bf382f474/hat.package.json"
+    },
+    {
+      "repository": "hathq/hat-website-operator",
+      "revision": "799aff8106a398680d349e109fbbfca07e2333d3",
+      "path": "hat.package.json",
+      "fixture": "hat-website-operator.package.json",
+      "sha256": "ee699fe89a9126dfa03fbd54fb8fcd08b0f6a9fae634131095c9de153f0ed1f3",
+      "git_blob": "9dfcefdd16aaf432dab2bdf61d4966814b4ebf3e",
+      "package_id": "hat/website-operator",
+      "version": "0.10.1",
+      "catalog_sha256": "2e02e9f91a1c06a09d03c2160018021fbc75a10d6688bafd411895f10b0e43c7",
+      "license": "Apache-2.0",
+      "source_url": "https://github.com/hathq/hat-website-operator/blob/799aff8106a398680d349e109fbbfca07e2333d3/hat.package.json"
+    }
+  ]
+}

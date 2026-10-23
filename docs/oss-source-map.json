@@ -132,7 +132,6 @@
     "schemas/hat-representative-role-instance-v1.schema.json",
     "schemas/hat-retention-policy-v2.schema.json",
     "schemas/hat-semantic-catalog-v1.schema.json",
-    "schemas/hat-semantic-clause-v1.schema.json",
     "schemas/hat-semantic-contribution-v1.schema.json",
     "schemas/hat-semantic-mapping-contract-v1.schema.json",
     "schemas/hat-situation-contribution-v1.schema.json",
@@ -142,21 +141,7 @@
     "schemas/result-v1.schema.json"
   ],
   "test_sources": [
-    "crates/hat-specifications-cli/src/commands.rs",
-    "crates/hat-specifications-cli/tests/cli.rs",
-    "src/communication.rs",
-    "src/doctor.rs",
-    "src/federation_validation_support.rs",
-    "src/fitting.rs",
-    "src/inference_action_validation.rs",
-    "src/local_registry_validation.rs",
-    "src/operational_validation.rs",
-    "src/package_validation.rs",
-    "src/representative.rs",
-    "src/security.rs",
-    "src/semantic_catalog_validation.rs",
-    "src/semantic_validation.rs",
-    "src/tokens.rs",
+    "tests/catalog_frame_retirement.rs",
     "tests/composition.rs",
     "tests/contracts.rs",
     "tests/control_grant.rs",
@@ -176,12 +161,11 @@
     "tests/person_assertion.rs",
     "tests/position_record.rs",
     "tests/projection_journal.rs",
+    "tests/public_producer_cohort.rs",
     "tests/representative_matter.rs",
     "tests/retention_deletion.rs",
     "tests/semantic_contribution.rs",
-    "tests/semantic_presentation.rs",
     "tests/semantic_protocol.rs",
-    "tests/semantic_protocol/support.rs",
     "tests/situation_contribution.rs",
     "tests/subject_reference.rs"
   ],
@@ -192,77 +176,20 @@
   ],
   "workflow_definitions": [
     {
-      "path": ".github/workflows/ci.yml",
-      "jobs": [
-        {
-          "job": "test",
-          "condition": null,
-          "runs_on": "ubuntu-24.04",
-          "steps": [
-            {
-              "name": null,
-              "run": null,
-              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
-              "condition": null
-            },
-            {
-              "name": "Install declared Rust toolchain",
-              "run": "rustup toolchain install 1.97 --profile minimal --component rustfmt --component clippy",
-              "uses": null,
-              "condition": null
-            },
-            {
-              "name": "Check every maintained package",
-              "run": "cargo +1.97 fmt --all -- --check\ncargo +1.97 clippy --locked --workspace --all-targets --all-features -- -D warnings\ncargo +1.97 test --locked --workspace --all-targets --all-features\ncargo +1.97 test --locked --workspace --doc --all-features\ncargo +1.97 build --locked --workspace --bins\n",
-              "uses": null,
-              "condition": null
-            },
-            {
-              "name": "Audit exact dependency lock",
-              "run": "cargo install cargo-audit --version 0.22.2 --locked --no-default-features --root \"$RUNNER_TEMP/audit\"\n\"$RUNNER_TEMP/audit/bin/cargo-audit\" audit --deny warnings\n",
-              "uses": null,
-              "condition": null
-            }
-          ]
-        }
-      ]
+      "path": ".github/workflows/ci.yml"
     },
     {
-      "path": ".github/workflows/oss-policy.yml",
-      "jobs": [
-        {
-          "job": "repository-policy",
-          "condition": null,
-          "runs_on": "ubuntu-latest",
-          "steps": [
-            {
-              "name": null,
-              "run": null,
-              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
-              "condition": null
-            },
-            {
-              "name": "Verify repository policy",
-              "run": "python3 .github/oss-policy-check.py",
-              "uses": null,
-              "condition": null
-            },
-            {
-              "name": "Verify policy regression tests",
-              "run": "cd .github && python3 -m unittest discover -s policy-tests",
-              "uses": null,
-              "condition": null
-            },
-            {
-              "name": "Check policy types",
-              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
-              "uses": null,
-              "condition": null
-            }
-          ]
-        }
-      ]
+      "path": ".github/workflows/dependabot-automerge.yml"
+    },
+    {
+      "path": ".github/workflows/oss-policy.yml"
+    },
+    {
+      "path": ".github/workflows/publish-cargo.yml"
     }
   ],
-  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred.",
+  "semantic_ownership_inventory": "docs/semantic-ownership-acceptance.md",
+  "public_producer_provenance": "tests/fixtures/public-producers/sources.json",
+  "workflow_policy": "Read job definitions and pinned actions directly from the workflow source paths; this map does not duplicate mutable workflow bodies."
 }
